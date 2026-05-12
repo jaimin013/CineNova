@@ -1,0 +1,858 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;800&amp;family=Inter:wght@300;400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#ba9eff',
+              'error-dim': '#d73357',
+              surface: '#0e0e0e',
+              'primary-fixed-dim': '#a27cff',
+              'on-secondary': '#3c4c61',
+              outline: '#777575',
+              'on-tertiary-fixed': '#380018',
+              'primary-fixed': '#ae8dff',
+              'tertiary-dim': '#f0779d',
+              'surface-container': '#1a1919',
+              'on-secondary-fixed': '#29394e',
+              'tertiary-container': '#fd81a8',
+              'surface-variant': '#262626',
+              'secondary-fixed-dim': '#bacae4',
+              'secondary-container': '#38485d',
+              'on-error': '#490013',
+              'on-secondary-fixed-variant': '#46556b',
+              'inverse-surface': '#fcf8f8',
+              'on-primary-container': '#2b006e',
+              'on-tertiary-fixed-variant': '#701039',
+              'inverse-primary': '#6e3bd7',
+              'outline-variant': '#494847',
+              'on-secondary-container': '#c1d1eb',
+              'on-tertiary-container': '#59002a',
+              'tertiary-fixed': '#ff8eb0',
+              'surface-bright': '#2c2c2c',
+              'surface-tint': '#ba9eff',
+              'primary-dim': '#8455ef',
+              'inverse-on-surface': '#565554',
+              'error-container': '#a70138',
+              secondary: '#c8d8f3',
+              tertiary: '#ff97b5',
+              'secondary-fixed': '#c8d8f3',
+              'on-primary-fixed-variant': '#370086',
+              'on-primary': '#39008c',
+              'surface-container-lowest': '#000000',
+              'surface-container-high': '#201f1f',
+              'surface-container-highest': '#262626',
+              'on-surface': '#ffffff',
+              'on-primary-fixed': '#000000',
+              'secondary-dim': '#bacae4',
+              'on-surface-variant': '#adaaaa',
+              'on-background': '#ffffff',
+              'surface-dim': '#0e0e0e',
+              'on-error-container': '#ffb2b9',
+              'surface-container-low': '#131313',
+              'on-tertiary': '#6a0934',
+              error: '#ff6e84',
+              'primary-container': '#ae8dff',
+              background: '#0e0e0e',
+              'tertiary-fixed-dim': '#f67ca3',
+            },
+            fontFamily: {
+              headline: ['Manrope'],
+              body: ['Inter'],
+              label: ['Inter'],
+            },
+            borderRadius: { DEFAULT: '0.125rem', lg: '0.25rem', xl: '0.5rem', full: '0.75rem' },
+          },
+        },
+      }
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 300,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .glass-panel {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .text-stroke-3 {
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+        color: transparent;
+      }
+    </style>
+  </head>
+  <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+    <!-- TopAppBar from COMPONENTS_8 -->
+    <header
+      class="fixed top-0 w-full z-50 bg-zinc-950/60 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] font-manrope antialiased tracking-tight"
+    >
+      <div class="flex justify-between items-center px-12 py-8 w-full">
+        <div class="text-3xl font-black tracking-tighter text-white uppercase">CINENOVA</div>
+        <div class="hidden md:flex flex-1 max-w-xl mx-12">
+          <div class="relative w-full group">
+            <span
+              class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors"
+              >search</span
+            >
+            <input
+              class="w-full bg-surface-container-highest border-none rounded-full py-3 pl-12 pr-6 text-sm focus:ring-1 focus:ring-primary/30 transition-all placeholder:text-outline-variant"
+              placeholder="Search the archives..."
+              type="text"
+            />
+          </div>
+        </div>
+        <nav class="flex items-center gap-8">
+          <div class="flex gap-6 items-center">
+            <button
+              class="text-white font-bold hover:text-violet-400 transition-all duration-700 ease-out active:scale-95 transform transition-transform"
+            >
+              EXPLORE
+            </button>
+            <button
+              class="text-zinc-500 font-medium hover:text-violet-400 transition-all duration-700 ease-out active:scale-95 transform transition-transform"
+            >
+              ORIGINALS
+            </button>
+          </div>
+          <div class="flex items-center gap-4 ml-4">
+            <button
+              class="material-symbols-outlined text-zinc-500 hover:text-white transition-colors"
+            >
+              notifications
+            </button>
+            <div
+              class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden p-0.5 ring-1 ring-white/10"
+            >
+              <img
+                alt="User profile avatar male"
+                class="w-full h-full object-cover rounded-full"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4B9-6-uJmGz9E-VK9dp9W187KBAgnB2Ez31MJyV2ke64tr4aFoCqOg2G8pIgVG3XIY_Hpt6l3YH_MQeK8b763cpHq5KprfZ7Vp-sQI0twKgN5BjRASRVKkRKW5ya4qeLJT2tT01GmNJl6odoBugIIDpkqiBoTtlE0U5NBKeialw6AB7hktJPIRr6eTuUeND6c3Ofz-i5kEyREplGhPxWqnTPogixwbjHRsxjnE6YxrGZGbvVi7XktM_Xl_tuY8sX8T9oDC2LTXe-o"
+              />
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div
+        class="h-[1px] w-full bg-gradient-to-r from-transparent via-white/5 to-transparent"
+      ></div>
+    </header>
+    <!-- SideNavBar from COMPONENTS_8 -->
+    <aside
+      class="fixed left-0 top-0 h-full w-24 z-40 bg-zinc-950/40 backdrop-blur-xl border-r border-white/5 flex flex-col items-center py-32 shadow-2xl shadow-violet-900/5"
+    >
+      <div class="flex flex-col gap-12 items-center">
+        <div
+          class="group flex flex-col items-center gap-2 cursor-pointer transition-transform duration-300 hover:translate-x-1"
+        >
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-xl bg-violet-500/10 text-violet-400 scale-110"
+          >
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1"
+              >grid_view</span
+            >
+          </div>
+          <span class="font-inter text-[10px] tracking-[0.2em] font-bold text-violet-400"
+            >DASHBOARD</span
+          >
+        </div>
+        <div
+          class="group flex flex-col items-center gap-2 cursor-pointer transition-transform duration-300 hover:translate-x-1"
+        >
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-xl text-zinc-600 group-hover:text-white transition-colors duration-500"
+          >
+            <span class="material-symbols-outlined">bookmark</span>
+          </div>
+          <span
+            class="font-inter text-[10px] tracking-[0.2em] font-bold text-zinc-600 group-hover:text-white transition-colors"
+            >WATCHLIST</span
+          >
+        </div>
+        <div
+          class="group flex flex-col items-center gap-2 cursor-pointer transition-transform duration-300 hover:translate-x-1"
+        >
+          <div
+            class="w-12 h-12 flex items-center justify-center rounded-xl text-zinc-600 group-hover:text-white transition-colors duration-500"
+          >
+            <span class="material-symbols-outlined">movie_filter</span>
+          </div>
+          <span
+            class="font-inter text-[10px] tracking-[0.2em] font-bold text-zinc-600 group-hover:text-white transition-colors"
+            >COMMUNITY</span
+          >
+        </div>
+      </div>
+      <div class="mt-auto flex flex-col items-center gap-6">
+        <div class="w-px h-12 bg-gradient-to-b from-transparent via-white/10 to-transparent"></div>
+        <div
+          class="material-symbols-outlined text-zinc-600 hover:text-primary cursor-pointer transition-colors"
+        >
+          settings
+        </div>
+      </div>
+    </aside>
+    <!-- Main Content Area -->
+    <main class="pl-24 pt-28 min-h-screen bg-surface">
+      <div class="flex flex-col lg:flex-row gap-8 px-12 py-8">
+        <!-- Discovery Canvas -->
+        <div class="flex-1 space-y-16">
+          <!-- Hero Section (Talk of the Town) -->
+          <section class="space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div class="space-y-2">
+                <span
+                  class="font-inter text-[11px] tracking-[0.3em] font-bold text-primary-fixed uppercase opacity-60"
+                  >Featured Discovery</span
+                >
+                <h1 class="font-headline text-5xl font-extrabold tracking-tighter">
+                  Talk of the Town
+                </h1>
+              </div>
+              <div class="flex bg-surface-container-low p-1 rounded-lg">
+                <button
+                  class="px-6 py-2 rounded-md bg-primary text-on-primary-fixed text-xs font-bold tracking-widest uppercase"
+                >
+                  All
+                </button>
+                <button
+                  class="px-6 py-2 rounded-md text-on-surface-variant hover:text-white text-xs font-bold tracking-widest uppercase transition-colors"
+                >
+                  Movies
+                </button>
+                <button
+                  class="px-6 py-2 rounded-md text-on-surface-variant hover:text-white text-xs font-bold tracking-widest uppercase transition-colors"
+                >
+                  Shows
+                </button>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div
+                class="lg:col-span-2 lg:row-span-2 group relative overflow-hidden rounded-xl bg-surface-container aspect-[4/5] shadow-2xl"
+              >
+                <img
+                  alt="Epic cinematic movie poster with dramatic lighting"
+                  class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8Suwl3oLT7qvJotYsgs8UVsc0EGQB1T-QWJA2qk8enB2GTzMWcPFAjhs-qlUp4m4P3UPWNZrJNuzOuGAfbKi6Mwj-qvMjFuAonzOlHDfgUe1LOKRQCqLmTELk7SmrPRKpgWKWsQs3W7fQD2b3tvVcVS57Djlq-37bQVBbBc49nEAR9Ghvthql-kofCcyJ9Ly7IbwrwvcwHf9NazkUF4Pp1Lsi2vBHc4V6LobYPjT5MujRum854gIkkZPJJMTylfvsbQSTt9xBuBlh"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-90"
+                ></div>
+                <div class="absolute bottom-0 left-0 p-8 w-full space-y-4">
+                  <div class="flex gap-2">
+                    <span
+                      class="px-3 py-1 bg-tertiary-container text-on-tertiary-container text-[10px] font-bold rounded-full uppercase tracking-tighter"
+                      >Must Watch</span
+                    >
+                    <span
+                      class="px-3 py-1 bg-surface-container-highest/60 backdrop-blur text-white text-[10px] font-bold rounded-full uppercase tracking-tighter"
+                      >2h 45m</span
+                    >
+                  </div>
+                  <div>
+                    <h3
+                      class="font-headline text-3xl font-black uppercase tracking-tighter leading-none"
+                    >
+                      THE VOID BEYOND
+                    </h3>
+                    <p class="text-on-surface-variant text-sm mt-2 font-medium opacity-80">
+                      Director: Elena Thorne • Sci-Fi Noir
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Poster 2 -->
+              <div class="group space-y-4">
+                <div
+                  class="relative overflow-hidden rounded-lg bg-surface-container aspect-[2/3] shadow-lg"
+                >
+                  <img
+                    alt="Classic cinema film reel"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvaJpz5XgDtaEIhUBWAGVjR_1yzW0t_wZeoMWHSU6Utxcfgn3jjQb9TISeWLHJFeqim98Rv1jLarlbnRa00MhfSE-MlaNoI9eLoE9YVznLRbTi8NXklm5Qw1RCFzjtq9hP5YYRj_IUlagPi_sgchW_6DgdIKSXmJy7XOmZWm64tD7K376hAerWXUCGxj9DGCQJUSL_AwnzAzW7CeWxZW9shWGo0nvNKhwZPuZfOlr6kk9Wt53AknPGKOKMcQbseB5A3GCNkyPuSziB"
+                  />
+                  <div
+                    class="absolute inset-0 bg-black/20 group-hover:bg-primary/10 transition-colors"
+                  ></div>
+                  <div class="absolute top-4 right-4">
+                    <button
+                      class="w-10 h-10 rounded-full glass-panel bg-surface-variant/40 flex items-center justify-center text-white hover:bg-primary transition-colors"
+                    >
+                      <span class="material-symbols-outlined text-xl">bookmark</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="px-1 flex justify-between items-start">
+                  <div>
+                    <h4
+                      class="font-headline text-lg font-bold leading-tight group-hover:text-primary transition-colors uppercase"
+                    >
+                      VELVET ECHOES
+                    </h4>
+                    <p
+                      class="text-on-surface-variant text-[11px] font-bold uppercase tracking-widest mt-1 opacity-60"
+                    >
+                      2024 • DRAMA
+                    </p>
+                  </div>
+                  <span class="material-symbols-outlined text-secondary-container" title="Good"
+                    >sentiment_very_satisfied</span
+                  >
+                </div>
+              </div>
+              <!-- Poster 3 -->
+              <div class="group space-y-4">
+                <div
+                  class="relative overflow-hidden rounded-lg bg-surface-container aspect-[2/3] shadow-lg"
+                >
+                  <img
+                    alt="Foggy mysterious figure"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzOcrQ_t6CHKAm2cEdXqTWXQrV6VTbIf6US5P6LkqghnFVIDEm823fDnt-aQ-QhOW7e1ct7Ek62OUHVXuyJi8GcHpbj-SJ2z8-zvDGJItpsgM5PlP9nvh3BphCZQ0H6OkzK1So2485Dz9BF7gkLPrkuPdOSfkyh3_tdOr6-Bu7V9q7CdCUpz1eBjCRBTpUAwKLHAwzQCynLZbeaVU37aohKRjdRVD7VNNxOcevMlbfFnr5gzu_sL8dI8Wlb_sZ8k0j63AaOJB2O1y5"
+                  />
+                  <div class="absolute top-4 right-4">
+                    <button
+                      class="w-10 h-10 rounded-full glass-panel bg-surface-variant/40 flex items-center justify-center text-white hover:bg-primary transition-colors"
+                    >
+                      <span class="material-symbols-outlined text-xl">bookmark</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="px-1 flex justify-between items-start">
+                  <div>
+                    <h4
+                      class="font-headline text-lg font-bold leading-tight group-hover:text-primary transition-colors uppercase"
+                    >
+                      MIDNIGHT SHADOW
+                    </h4>
+                    <p
+                      class="text-on-surface-variant text-[11px] font-bold uppercase tracking-widest mt-1 opacity-60"
+                    >
+                      2023 • THRILLER
+                    </p>
+                  </div>
+                  <span class="material-symbols-outlined text-tertiary-dim" title="Must Watch"
+                    >star</span
+                  >
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Platform Specific: Editor's Choice -->
+          <section class="space-y-6">
+            <div class="flex items-center justify-between">
+              <h2 class="font-headline text-3xl font-bold tracking-tight">Editor's Choice</h2>
+              <button class="text-xs font-bold tracking-widest uppercase text-primary">
+                Explore All
+              </button>
+            </div>
+            <div class="flex gap-6 overflow-x-auto hide-scrollbar -mx-4 px-4 pb-4">
+              <!-- Card 1 -->
+              <div class="flex-shrink-0 w-48 group space-y-3">
+                <div class="relative aspect-[2/3] rounded-lg overflow-hidden">
+                  <img
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO30-0XTj3i4S3YHTo3EsLJJVSyyJqvJ8ql4BQEtVZAht4v7mRWl1o3a0r9EBxPS4qBLPN6gUCjvf3alBircnubJqtOQ9umfKv9UzK6zDNpjfyfWkFDs5gzVXyMkTlrZCIzEuS8IWwL60w25Pv8La06DHB1z6i0XeblTVQkZbEu6y48ZPCRDAbtnc5YtHs2jh48A2yCAmOHDisRa_S5G0v7oFZi0KZdieE31s6Ai8KfWiUAOAAdF2NKODfhZT0EaEHnMQK9QGqfQxP"
+                  />
+                  <div class="absolute top-2 right-2">
+                    <span
+                      class="material-symbols-outlined text-white text-lg bg-black/40 p-1 rounded-full"
+                      >star</span
+                    >
+                  </div>
+                </div>
+                <div>
+                  <h5 class="text-sm font-bold uppercase truncate">THE LAST AUTEUR</h5>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="material-symbols-outlined text-tertiary-dim text-xs">star</span>
+                    <span class="text-[10px] text-on-surface-variant font-bold">MUST WATCH</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Card 2 -->
+              <div class="flex-shrink-0 w-48 group space-y-3">
+                <div class="relative aspect-[2/3] rounded-lg overflow-hidden">
+                  <img
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAc_9ttHPJio0Qa6PJDUE3jdorn9202rQdul5fNgWcnYEBqPhItnyiqrdk1qRryOpAJj5I0rRJC0g-IVoC5q6zLPpXP7o6n3GDKzqtYnaUbCtii6jU1XVUZaiuldqW2wmcm5ggeXoGQw60Cuv8ztoTLRDJWqyP-AyXsCJcAnSS-sNi2gAZsT6I5uUyodsMRcf5TbD7Bd-bcmKqtoXXVWjgxbuv_HBg3GK_QCN6FZgzYeDjJNkBfnk_o8TmJOVFcPJHamZGzir8g4VWr"
+                  />
+                </div>
+                <div>
+                  <h5 class="text-sm font-bold uppercase truncate">VINTAGE REEL</h5>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="material-symbols-outlined text-secondary-container text-xs"
+                      >sentiment_very_satisfied</span
+                    >
+                    <span class="text-[10px] text-on-surface-variant font-bold">GOOD</span>
+                  </div>
+                </div>
+              </div>
+              <!-- More cards... -->
+              <div class="flex-shrink-0 w-48 group space-y-3">
+                <div class="relative aspect-[2/3] rounded-lg overflow-hidden">
+                  <img
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnBXj3LXPrXq_tUOrn1iI5shZWT9F2_iAXgIvh4pio1DlrS36s3ze_8KM-DCrOrIqYqtolczUTpfc5CBvI7G7tGBsYYGcpj0pFuiFRWUz2jLZH-hD4TscR6m7vPakLAdvE8grcoU_hN8FH1aib7_toXGdDJ-OxBfFPxb3dAtNQoitjyCkCv9iN9l_UFfXEMCAU596n6ftRbhlg0UwSo7Cig9Z9SW8VP-ZOYS7JzcX4v3U088OP7yunk8hVBYRpOUOjv6DmWAQYLNqh"
+                  />
+                </div>
+                <div>
+                  <h5 class="text-sm font-bold uppercase truncate">NEON DRIFT</h5>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="material-symbols-outlined text-outline text-xs"
+                      >sentiment_neutral</span
+                    >
+                    <span class="text-[10px] text-on-surface-variant font-bold">TIMEPASS</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex-shrink-0 w-48 group space-y-3">
+                <div class="relative aspect-[2/3] rounded-lg overflow-hidden">
+                  <img
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJTTTg89RWBK6jv1TAs6cJUBnnf3IdFETzCtHk69_mmkDjsxiXYJH3CA6YeXm5-ONEfIuOIF3awpYfoBdqb2A_G3JiQrwByZEJ3Tek9CBJCr4qdqo5aRzQwNNzWHV7MB7kRPq8e2S5CoG0pODsH9gkpUMFTJozluxJ3e3LEhzqXSSXCSWByyuQPJj4Cr6riv-JcVH6w3vW8X3CGagNlDoIYGjqlE2Yac7mMBaQx_bcDB0Q3KfrSoyxX658ZvrcqAM5mcZl6Sew4Z6d"
+                  />
+                </div>
+                <div>
+                  <h5 class="text-sm font-bold uppercase truncate">STEEL CANVAS II</h5>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="material-symbols-outlined text-secondary-container text-xs"
+                      >sentiment_very_satisfied</span
+                    >
+                    <span class="text-[10px] text-on-surface-variant font-bold">GOOD</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Platform Specific: Now on Netflix -->
+          <section class="space-y-6">
+            <div class="flex items-center gap-3">
+              <img
+                alt="Netflix"
+                class="h-6"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-ixijDVWpV3qCw2qVU0B5coTy-gmxNUDY7JfTyVm50sh9dl5PUlblcCaC-rJxL7kkXHvPb6nj2GI9deDZgNP3a_DDAjq3F7k2H5xCg4BsuX74zHSErWSJH3NmnDaux9GH4JkIBiw3YLvppsDH-satcpuk5pfB-IxaUDogLc8ayIvAGOTSKgIAfzQ0otmTumz6p3SeiBR9ITr_jgOx_7Qf3Z-q1f5hjElXXociKRENxixl88jTTGn8rkRhtsuD0qg2KJ_JL9axGYba"
+              />
+              <h2 class="font-headline text-3xl font-bold tracking-tight">Now on Netflix</h2>
+            </div>
+            <div class="flex gap-6 overflow-x-auto hide-scrollbar -mx-4 px-4">
+              <!-- Movie Card 1 -->
+              <div
+                class="flex-shrink-0 w-72 group relative rounded-xl overflow-hidden aspect-video shadow-lg"
+              >
+                <img
+                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8Suwl3oLT7qvJotYsgs8UVsc0EGQB1T-QWJA2qk8enB2GTzMWcPFAjhs-qlUp4m4P3UPWNZrJNuzOuGAfbKi6Mwj-qvMjFuAonzOlHDfgUe1LOKRQCqLmTELk7SmrPRKpgWKWsQs3W7fQD2b3tvVcVS57Djlq-37bQVBbBc49nEAR9Ghvthql-kofCcyJ9Ly7IbwrwvcwHf9NazkUF4Pp1Lsi2vBHc4V6LobYPjT5MujRum854gIkkZPJJMTylfvsbQSTt9xBuBlh"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"
+                ></div>
+                <div class="absolute bottom-4 left-4">
+                  <p class="text-[10px] font-bold tracking-widest text-primary uppercase">
+                    Trending Today
+                  </p>
+                  <h5 class="text-lg font-bold">Arcane: Season 2</h5>
+                </div>
+              </div>
+              <!-- Movie Card 2 -->
+              <div
+                class="flex-shrink-0 w-72 group relative rounded-xl overflow-hidden aspect-video shadow-lg"
+              >
+                <img
+                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnBXj3LXPrXq_tUOrn1iI5shZWT9F2_iAXgIvh4pio1DlrS36s3ze_8KM-DCrOrIqYqtolczUTpfc5CBvI7G7tGBsYYGcpj0pFuiFRWUz2jLZH-hD4TscR6m7vPakLAdvE8grcoU_hN8FH1aib7_toXGdDJ-OxBfFPxb3dAtNQoitjyCkCv9iN9l_UFfXEMCAU596n6ftRbhlg0UwSo7Cig9Z9SW8VP-ZOYS7JzcX4v3U088OP7yunk8hVBYRpOUOjv6DmWAQYLNqh"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"
+                ></div>
+                <div class="absolute bottom-4 left-4">
+                  <p class="text-[10px] font-bold tracking-widest text-primary uppercase">
+                    New Release
+                  </p>
+                  <h5 class="text-lg font-bold">The Last Frontier</h5>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Trending Weekly (Already Present but integrated) -->
+          <section class="space-y-6">
+            <div class="flex items-center justify-between">
+              <h2 class="font-headline text-3xl font-bold tracking-tight">Trending This Week</h2>
+              <button
+                class="text-xs font-bold tracking-widest uppercase text-primary border-b border-primary/20 pb-1"
+              >
+                See All Activity
+              </button>
+            </div>
+            <div class="flex gap-6 overflow-x-auto hide-scrollbar pb-8 -mx-4 px-4">
+              <div
+                class="flex-shrink-0 w-64 p-6 rounded-xl bg-surface-container-low border border-white/5 space-y-4 hover:bg-surface-container transition-colors cursor-pointer"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-8 h-8 rounded-full bg-violet-500/20 flex items-center justify-center"
+                  >
+                    <span class="material-symbols-outlined text-sm text-primary">trending_up</span>
+                  </div>
+                  <span
+                    class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase"
+                    >Rising in Clubs</span
+                  >
+                </div>
+                <h5 class="font-headline text-xl font-bold leading-tight">
+                  Arcane: Season 2 Discussion
+                </h5>
+                <p class="text-xs text-on-surface-variant/80 line-clamp-2 leading-relaxed">
+                  Join 1.2k others discussing the latest theories on the undercity's future.
+                </p>
+                <div class="flex -space-x-2">
+                  <div class="w-6 h-6 rounded-full border border-surface bg-zinc-800"></div>
+                  <div class="w-6 h-6 rounded-full border border-surface bg-zinc-700"></div>
+                  <div class="w-6 h-6 rounded-full border border-surface bg-zinc-600"></div>
+                  <span class="ml-4 text-[10px] text-on-surface-variant self-center"
+                    >+42 active</span
+                  >
+                </div>
+              </div>
+              <div
+                class="flex-shrink-0 w-64 p-6 rounded-xl bg-surface-container-low border border-white/5 space-y-4 hover:bg-surface-container transition-colors cursor-pointer"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-8 h-8 rounded-full bg-tertiary-container/20 flex items-center justify-center"
+                  >
+                    <span class="material-symbols-outlined text-sm text-tertiary">movie</span>
+                  </div>
+                  <span
+                    class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase"
+                    >New Trailer</span
+                  >
+                </div>
+                <h5 class="font-headline text-xl font-bold leading-tight">
+                  The Last Auteur: Official
+                </h5>
+                <p class="text-xs text-on-surface-variant/80 line-clamp-2 leading-relaxed">
+                  First look at the highly anticipated finale of the trilogy.
+                </p>
+                <div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+                  <div class="h-full bg-primary w-3/4"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Platform Specific: Stream on JioHotstar -->
+          <section class="space-y-6">
+            <div class="flex items-center gap-3">
+              <div class="bg-blue-600 px-2 py-0.5 rounded text-[10px] font-black italic">
+                HOTSTAR
+              </div>
+              <h2 class="font-headline text-3xl font-bold tracking-tight">Stream on JioHotstar</h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <!-- Movie Card -->
+              <div class="group relative aspect-[3/4] rounded-lg overflow-hidden">
+                <img
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8Suwl3oLT7qvJotYsgs8UVsc0EGQB1T-QWJA2qk8enB2GTzMWcPFAjhs-qlUp4m4P3UPWNZrJNuzOuGAfbKi6Mwj-qvMjFuAonzOlHDfgUe1LOKRQCqLmTELk7SmrPRKpgWKWsQs3W7fQD2b3tvVcVS57Djlq-37bQVBbBc49nEAR9Ghvthql-kofCcyJ9Ly7IbwrwvcwHf9NazkUF4Pp1Lsi2vBHc4V6LobYPjT5MujRum854gIkkZPJJMTylfvsbQSTt9xBuBlh"
+                />
+                <div
+                  class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <button
+                    class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-black shadow-xl"
+                  >
+                    <span class="material-symbols-outlined">play_arrow</span>
+                  </button>
+                </div>
+                <div
+                  class="absolute top-2 left-2 bg-blue-600/80 backdrop-blur px-2 py-1 rounded text-[8px] font-bold"
+                >
+                  PREMIUM
+                </div>
+              </div>
+              <div class="group relative aspect-[3/4] rounded-lg overflow-hidden">
+                <img
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzOcrQ_t6CHKAm2cEdXqTWXQrV6VTbIf6US5P6LkqghnFVIDEm823fDnt-aQ-QhOW7e1ct7Ek62OUHVXuyJi8GcHpbj-SJ2z8-zvDGJItpsgM5PlP9nvh3BphCZQ0H6OkzK1So2485Dz9BF7gkLPrkuPdOSfkyh3_tdOr6-Bu7V9q7CdCUpz1eBjCRBTpUAwKLHAwzQCynLZbeaVU37aohKRjdRVD7VNNxOcevMlbfFnr5gzu_sL8dI8Wlb_sZ8k0j63AaOJB2O1y5"
+                />
+                <div
+                  class="absolute top-2 left-2 bg-blue-600/80 backdrop-blur px-2 py-1 rounded text-[8px] font-bold"
+                >
+                  PREMIUM
+                </div>
+              </div>
+              <div class="group relative aspect-[3/4] rounded-lg overflow-hidden">
+                <img
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvaJpz5XgDtaEIhUBWAGVjR_1yzW0t_wZeoMWHSU6Utxcfgn3jjQb9TISeWLHJFeqim98Rv1jLarlbnRa00MhfSE-MlaNoI9eLoE9YVznLRbTi8NXklm5Qw1RCFzjtq9hP5YYRj_IUlagPi_sgchW_6DgdIKSXmJy7XOmZWm64tD7K376hAerWXUCGxj9DGCQJUSL_AwnzAzW7CeWxZW9shWGo0nvNKhwZPuZfOlr6kk9Wt53AknPGKOKMcQbseB5A3GCNkyPuSziB"
+                />
+                <div
+                  class="absolute top-2 left-2 bg-blue-600/80 backdrop-blur px-2 py-1 rounded text-[8px] font-bold"
+                >
+                  PREMIUM
+                </div>
+              </div>
+              <div class="group relative aspect-[3/4] rounded-lg overflow-hidden">
+                <img
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnBXj3LXPrXq_tUOrn1iI5shZWT9F2_iAXgIvh4pio1DlrS36s3ze_8KM-DCrOrIqYqtolczUTpfc5CBvI7G7tGBsYYGcpj0pFuiFRWUz2jLZH-hD4TscR6m7vPakLAdvE8grcoU_hN8FH1aib7_toXGdDJ-OxBfFPxb3dAtNQoitjyCkCv9iN9l_UFfXEMCAU596n6ftRbhlg0UwSo7Cig9Z9SW8VP-ZOYS7JzcX4v3U088OP7yunk8hVBYRpOUOjv6DmWAQYLNqh"
+                />
+              </div>
+            </div>
+          </section>
+        </div>
+        <!-- Right Sidebar: Ranked 'Most Interested' & Activity -->
+        <aside class="w-full lg:w-96 space-y-12">
+          <!-- Most Interested Ranked List from IMAGE_2 -->
+          <section class="space-y-6">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span
+                  class="material-symbols-outlined text-primary"
+                  style="font-variation-settings: 'FILL' 1"
+                  >local_fire_department</span
+                >
+                <h2 class="font-headline text-xl font-bold tracking-tight">Most Interested</h2>
+              </div>
+              <select
+                class="bg-transparent border-none text-[10px] font-bold text-on-surface-variant uppercase tracking-widest focus:ring-0"
+              >
+                <option>This Week</option>
+                <option>Monthly</option>
+              </select>
+            </div>
+            <div class="space-y-4">
+              <!-- Rank 1 -->
+              <div
+                class="flex items-center gap-4 group cursor-pointer bg-white/5 hover:bg-white/10 p-3 rounded-xl transition-all border border-transparent hover:border-white/10 relative"
+              >
+                <div
+                  class="text-5xl font-black text-stroke-3 italic absolute -left-4 -top-2 opacity-50 select-none"
+                >
+                  1
+                </div>
+                <div class="w-16 h-20 rounded shadow-lg overflow-hidden flex-shrink-0 z-10">
+                  <img
+                    class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8Suwl3oLT7qvJotYsgs8UVsc0EGQB1T-QWJA2qk8enB2GTzMWcPFAjhs-qlUp4m4P3UPWNZrJNuzOuGAfbKi6Mwj-qvMjFuAonzOlHDfgUe1LOKRQCqLmTELk7SmrPRKpgWKWsQs3W7fQD2b3tvVcVS57Djlq-37bQVBbBc49nEAR9Ghvthql-kofCcyJ9Ly7IbwrwvcwHf9NazkUF4Pp1Lsi2vBHc4V6LobYPjT5MujRum854gIkkZPJJMTylfvsbQSTt9xBuBlh"
+                  />
+                </div>
+                <div class="flex-1 min-w-0 z-10">
+                  <h6 class="font-bold text-sm truncate uppercase">The Void Beyond</h6>
+                  <p class="text-[10px] text-on-surface-variant font-medium">
+                    26 Mar, 2024 • In Theatre
+                  </p>
+                  <div class="flex items-center gap-1 mt-1 text-primary">
+                    <span
+                      class="material-symbols-outlined text-xs"
+                      style="font-variation-settings: 'FILL' 1"
+                      >local_fire_department</span
+                    >
+                    <span class="text-[10px] font-black uppercase">4.5K Interested</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Rank 2 -->
+              <div
+                class="flex items-center gap-4 group cursor-pointer bg-white/5 hover:bg-white/10 p-3 rounded-xl transition-all relative"
+              >
+                <div
+                  class="text-5xl font-black text-stroke-3 italic absolute -left-4 -top-2 opacity-30 select-none"
+                >
+                  2
+                </div>
+                <div class="w-16 h-20 rounded shadow-lg overflow-hidden flex-shrink-0 z-10">
+                  <img
+                    class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzOcrQ_t6CHKAm2cEdXqTWXQrV6VTbIf6US5P6LkqghnFVIDEm823fDnt-aQ-QhOW7e1ct7Ek62OUHVXuyJi8GcHpbj-SJ2z8-zvDGJItpsgM5PlP9nvh3BphCZQ0H6OkzK1So2485Dz9BF7gkLPrkuPdOSfkyh3_tdOr6-Bu7V9q7CdCUpz1eBjCRBTpUAwKLHAwzQCynLZbeaVU37aohKRjdRVD7VNNxOcevMlbfFnr5gzu_sL8dI8Wlb_sZ8k0j63AaOJB2O1y5"
+                  />
+                </div>
+                <div class="flex-1 min-w-0 z-10">
+                  <h6 class="font-bold text-sm truncate uppercase">Midnight Shadow</h6>
+                  <p class="text-[10px] text-on-surface-variant font-medium">
+                    12 Apr, 2024 • New Season
+                  </p>
+                  <div class="flex items-center gap-1 mt-1 text-primary/70">
+                    <span
+                      class="material-symbols-outlined text-xs"
+                      style="font-variation-settings: 'FILL' 1"
+                      >local_fire_department</span
+                    >
+                    <span class="text-[10px] font-black uppercase">3.2K Interested</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Rank 3 -->
+              <div
+                class="flex items-center gap-4 group cursor-pointer bg-white/5 hover:bg-white/10 p-3 rounded-xl transition-all relative"
+              >
+                <div
+                  class="text-5xl font-black text-stroke-3 italic absolute -left-4 -top-2 opacity-30 select-none"
+                >
+                  3
+                </div>
+                <div class="w-16 h-20 rounded shadow-lg overflow-hidden flex-shrink-0 z-10">
+                  <img
+                    class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvaJpz5XgDtaEIhUBWAGVjR_1yzW0t_wZeoMWHSU6Utxcfgn3jjQb9TISeWLHJFeqim98Rv1jLarlbnRa00MhfSE-MlaNoI9eLoE9YVznLRbTi8NXklm5Qw1RCFzjtq9hP5YYRj_IUlagPi_sgchW_6DgdIKSXmJy7XOmZWm64tD7K376hAerWXUCGxj9DGCQJUSL_AwnzAzW7CeWxZW9shWGo0nvNKhwZPuZfOlr6kk9Wt53AknPGKOKMcQbseB5A3GCNkyPuSziB"
+                  />
+                </div>
+                <div class="flex-1 min-w-0 z-10">
+                  <h6 class="font-bold text-sm truncate uppercase">Velvet Echoes</h6>
+                  <p class="text-[10px] text-on-surface-variant font-medium">
+                    18 Apr, 2024 • In Theatre
+                  </p>
+                  <div class="flex items-center gap-1 mt-1 text-primary/50">
+                    <span
+                      class="material-symbols-outlined text-xs"
+                      style="font-variation-settings: 'FILL' 1"
+                      >local_fire_department</span
+                    >
+                    <span class="text-[10px] font-black uppercase">1.8K Interested</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Rank 4 & 5... -->
+              <div
+                class="flex items-center gap-4 group cursor-pointer bg-white/5 hover:bg-white/10 p-3 rounded-xl transition-all relative"
+              >
+                <div
+                  class="text-5xl font-black text-stroke-3 italic absolute -left-4 -top-2 opacity-30 select-none"
+                >
+                  4
+                </div>
+                <div class="w-16 h-20 rounded shadow-lg overflow-hidden flex-shrink-0 z-10">
+                  <img
+                    class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnBXj3LXPrXq_tUOrn1iI5shZWT9F2_iAXgIvh4pio1DlrS36s3ze_8KM-DCrOrIqYqtolczUTpfc5CBvI7G7tGBsYYGcpj0pFuiFRWUz2jLZH-hD4TscR6m7vPakLAdvE8grcoU_hN8FH1aib7_toXGdDJ-OxBfFPxb3dAtNQoitjyCkCv9iN9l_UFfXEMCAU596n6ftRbhlg0UwSo7Cig9Z9SW8VP-ZOYS7JzcX4v3U088OP7yunk8hVBYRpOUOjv6DmWAQYLNqh"
+                  />
+                </div>
+                <div class="flex-1 min-w-0 z-10">
+                  <h6 class="font-bold text-sm truncate uppercase">Neon Pulse</h6>
+                  <p class="text-[10px] text-on-surface-variant font-medium">
+                    20 May, 2024 • Streaming
+                  </p>
+                  <div class="flex items-center gap-1 mt-1 text-primary/40">
+                    <span
+                      class="material-symbols-outlined text-xs"
+                      style="font-variation-settings: 'FILL' 1"
+                      >local_fire_department</span
+                    >
+                    <span class="text-[10px] font-black uppercase">980 Interested</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Recommendation Banner -->
+          <div
+            class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary-dim to-violet-900 p-8 space-y-4 shadow-xl shadow-primary/10"
+          >
+            <div
+              class="absolute -top-12 -right-12 w-32 h-32 bg-white/10 rounded-full blur-3xl"
+            ></div>
+            <span
+              class="text-[9px] font-black tracking-[0.3em] text-on-primary uppercase px-2 py-1 bg-white/20 rounded"
+              >AI PICK</span
+            >
+            <h4 class="font-headline text-xl font-extrabold text-white leading-tight">
+              Find your next obsession.
+            </h4>
+            <p class="text-sm text-white/70">
+              Our engine suggests movies based on your emotional mood.
+            </p>
+            <button
+              class="w-full py-3 bg-white text-primary-dim font-bold text-xs tracking-widest uppercase rounded-lg shadow-lg hover:scale-[1.02] transition-transform"
+            >
+              Start Journey
+            </button>
+          </div>
+          <!-- Your Clubs section remains from original -->
+          <section class="space-y-6">
+            <div class="flex items-center justify-between px-4">
+              <h6
+                class="text-[10px] font-bold tracking-[0.2em] text-on-surface-variant uppercase opacity-40"
+              >
+                Your Clubs
+              </h6>
+              <span
+                class="material-symbols-outlined text-sm text-outline cursor-pointer hover:text-white"
+                >add_circle</span
+              >
+            </div>
+            <div class="space-y-4">
+              <div
+                class="flex items-center gap-4 p-3 rounded-xl hover:bg-surface-container transition-all cursor-pointer group"
+              >
+                <div class="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+                  <img
+                    alt="Vibrant concert stage"
+                    class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO30-0XTj3i4S3YHTo3EsLJJVSyyJqvJ8ql4BQEtVZAht4v7mRWl1o3a0r9EBxPS4qBLPN6gUCjvf3alBircnubJqtOQ9umfKv9UzK6zDNpjfyfWkFDs5gzVXyMkTlrZCIzEuS8IWwL60w25Pv8La06DHB1z6i0XeblTVQkZbEu6y48ZPCRDAbtnc5YtHs2jh48A2yCAmOHDisRa_S5G0v7oFZi0KZdieE31s6Ai8KfWiUAOAAdF2NKODfhZT0EaEHnMQK9QGqfQxP"
+                  />
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-bold truncate group-hover:text-primary transition-colors">
+                    Cinephiles Elite
+                  </p>
+                  <p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-wider">
+                    24 New Reviews
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+    <!-- Footer from COMPONENTS_8 -->
+    <footer
+      class="w-full py-16 mt-32 bg-zinc-950 border-t border-white/5 flex flex-col items-center justify-center gap-4"
+    >
+      <div class="flex gap-8 mb-4">
+        <a
+          class="font-inter text-[9px] tracking-widest uppercase opacity-40 hover:opacity-100 transition-opacity"
+          href="#"
+          >Manifesto</a
+        >
+        <a
+          class="font-inter text-[9px] tracking-widest uppercase opacity-40 hover:opacity-100 transition-opacity"
+          href="#"
+          >Privacy</a
+        >
+        <a
+          class="font-inter text-[9px] tracking-widest uppercase opacity-40 hover:opacity-100 transition-opacity"
+          href="#"
+          >Terms</a
+        >
+      </div>
+      <p class="font-inter text-[9px] tracking-widest uppercase opacity-40">
+        © 2024 CINENOVA. THE DIGITAL AUTEUR EXPERIENCE.
+      </p>
+    </footer>
+  </body>
+</html>

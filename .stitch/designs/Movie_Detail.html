@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spider-Man: Brand New Day | CineNova</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;700;800&amp;family=Inter:wght@300;400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#262626",
+              "surface-dim": "#0e0e0e",
+              "tertiary": "#ff97b5",
+              "primary-fixed": "#ae8dff",
+              "on-primary-container": "#2b006e",
+              "secondary": "#c8d8f3",
+              "on-surface-variant": "#adaaaa",
+              "surface-container-lowest": "#000000",
+              "on-surface": "#ffffff",
+              "surface-container-low": "#131313",
+              "outline": "#777575",
+              "surface-container-highest": "#262626",
+              "surface-container": "#1a1919",
+              "on-error": "#490013",
+              "error-dim": "#d73357",
+              "surface": "#0e0e0e",
+              "secondary-container": "#38485d",
+              "inverse-on-surface": "#565554",
+              "error": "#ff6e84",
+              "on-primary": "#39008c",
+              "on-secondary-fixed": "#29394e",
+              "surface-container-high": "#201f1f",
+              "secondary-fixed": "#c8d8f3",
+              "on-secondary-container": "#c1d1eb",
+              "secondary-dim": "#bacae4",
+              "on-secondary": "#3c4c61",
+              "on-primary-fixed-variant": "#370086",
+              "background": "#0e0e0e",
+              "primary": "#ba9eff",
+              "primary-dim": "#8455ef",
+              "secondary-fixed-dim": "#bacae4",
+              "tertiary-container": "#fd81a8",
+              "on-error-container": "#ffb2b9",
+              "error-container": "#a70138",
+              "on-tertiary-fixed": "#380018",
+              "on-background": "#ffffff",
+              "inverse-primary": "#6e3bd7",
+              "surface-bright": "#2c2c2c",
+              "tertiary-fixed-dim": "#f67ca3",
+              "primary-container": "#ae8dff",
+              "on-primary-fixed": "#000000",
+              "tertiary-fixed": "#ff8eb0",
+              "surface-tint": "#ba9eff",
+              "on-secondary-fixed-variant": "#46556b",
+              "tertiary-dim": "#f0779d",
+              "outline-variant": "#494847",
+              "primary-fixed-dim": "#a27cff",
+              "on-tertiary-fixed-variant": "#701039",
+              "on-tertiary-container": "#59002a",
+              "inverse-surface": "#fcf8f8",
+              "on-tertiary": "#6a0934"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-zinc-950/60 backdrop-blur-xl bg-gradient-to-b from-zinc-950 to-transparent shadow-none px-8 py-4 flex justify-between items-center w-full">
+<div class="flex items-center gap-12">
+<span class="text-2xl font-black text-violet-500 tracking-tighter font-headline">CineNova</span>
+<div class="hidden md:flex gap-8 items-center text-zinc-400 font-manrope tracking-tight">
+<a class="text-zinc-400 hover:text-zinc-100 hover:text-violet-300 transition-colors duration-300" href="#">Dashboard</a>
+<a class="text-violet-400 font-bold border-b-2 border-violet-500 pb-1 hover:text-violet-300 transition-colors duration-300" href="#">Watchlist</a>
+<a class="text-zinc-400 hover:text-zinc-100 hover:text-violet-300 transition-colors duration-300" href="#">Community</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex items-center bg-surface-container-highest px-4 py-2 rounded-full gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 text-on-surface" placeholder="Search films..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="scale-105 active:scale-95 transition-transform text-zinc-400 hover:text-violet-300 transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="scale-105 active:scale-95 transition-transform text-zinc-400 hover:text-violet-300 transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+</button>
+<img alt="User profile" class="w-10 h-10 rounded-full object-cover border-2 border-surface-variant" data-alt="User profile portrait photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpL7ezVukGYjz3Hl9Abv_7TNyjNqIU_1AtTOudNzyYnu5veR0Z7Q619EK3NavoLK7Cyd0yfWuPn0wxv7FzGBPwMeMvB-pLWor4TWYfg0v7yreCRYbQQcp86jZeJJwI17E9cHGaWRsRmzWl_7iDVF368j_M_vqMn73IyfWv5y-w7LXMtLMLuMkqD1kuUFzZc9yWd6UPPgZXc4WHN_sVAuMn50_6yEXIbrv4sjMMKqe4OqBQgh5YYd3ZbtezCCRmwgl96mqLSHRqx1yy"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-zinc-900/80 backdrop-blur-2xl bg-zinc-900 shadow-2xl shadow-violet-900/10 flex flex-col h-full py-10 hidden xl:flex translate-x-[-100%] 2xl:translate-x-0 transition-transform duration-300">
+<div class="px-8 mb-12">
+<span class="text-2xl font-black text-violet-500 tracking-tighter font-headline">CineNova</span>
+<p class="text-[10px] tracking-widest font-bold font-manrope uppercase text-violet-500 mt-1">The Digital Auteur</p>
+</div>
+<div class="flex-grow flex flex-col space-y-1">
+<a class="text-zinc-500 px-6 py-4 hover:bg-zinc-800/30 hover:text-zinc-200 transition-all duration-200 ease-in-out font-manrope uppercase text-[10px] tracking-widest font-bold flex items-center gap-4" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="grid_view">grid_view</span>
+                Dashboard
+            </a>
+<a class="text-violet-400 font-bold bg-zinc-800/50 border-r-4 border-violet-500 px-6 py-4 transition-all duration-200 ease-in-out font-manrope uppercase text-[10px] tracking-widest font-bold flex items-center gap-4" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="movie_filter">movie_filter</span>
+                Watchlist
+            </a>
+<a class="text-zinc-500 px-6 py-4 hover:bg-zinc-800/30 hover:text-zinc-200 transition-all duration-200 ease-in-out font-manrope uppercase text-[10px] tracking-widest font-bold flex items-center gap-4" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="group">group</span>
+                Community
+            </a>
+</div>
+<div class="mt-auto border-t border-zinc-800/50 pt-6">
+<a class="text-zinc-500 px-6 py-4 hover:bg-zinc-800/30 hover:text-zinc-200 transition-all duration-200 ease-in-out font-manrope uppercase text-[10px] tracking-widest font-bold flex items-center gap-4" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="text-zinc-500 px-6 py-4 hover:bg-zinc-800/30 hover:text-zinc-200 transition-all duration-200 ease-in-out font-manrope uppercase text-[10px] tracking-widest font-bold flex items-center gap-4" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="help_outline">help_outline</span>
+                Support
+            </a>
+</div>
+</aside>
+<main class="xl:pl-64 min-h-screen">
+<!-- Hero Section -->
+<section class="relative h-[870px] w-full overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000" data-alt="Spider-Man cinematic wide shot cinematic poster" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCgBujiJgVqmeyJIm3JTygwmH6dyUr-DSqxqzGh9-doLO0XCcVN9FHlfsiWPWo2SQcFVcE0i29PkrSfLtrkOk63fE1aVbcH14jkcUgzR-zc5QNxYAV-uF2B1d8bMaP4XZOofe6aU90m8sVrWQV4OyJb9Xh84Ja5gKdqSxmEELw4SGSmp7m8ancGToAQTDMSsg4x2pOw5t2xV-pA2m2ovWIiUl_eLUoqDBbVFW6r-RExZLkriD59yvuhsm3m48k2qTd6hDbkNFWDKnv2')">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent"></div>
+</div>
+<div class="relative h-full flex flex-col justify-end px-8 pb-20 md:px-16 lg:pb-32 max-w-7xl mx-auto">
+<div class="space-y-6 max-w-2xl">
+<div class="flex gap-3">
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-container text-[10px] font-bold tracking-widest uppercase rounded">Must Watch</span>
+<span class="px-3 py-1 bg-surface-container-highest/60 backdrop-blur-md text-on-surface text-[10px] font-bold tracking-widest uppercase rounded">PG-13</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-black font-headline tracking-tighter leading-tight">Spider-Man:<br/><span class="text-primary">Brand New Day</span></h1>
+<div class="flex items-center gap-6 font-manrope text-on-surface-variant font-medium">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm" data-icon="calendar_today">calendar_today</span> 2026</span>
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm" data-icon="public">public</span> USA</span>
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm" data-icon="language">language</span> English</span>
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm" data-icon="schedule">schedule</span> 148 MIN</span>
+</div>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="bg-gradient-to-br from-primary to-primary-dim text-on-primary-fixed px-8 py-4 rounded-md font-bold flex items-center gap-3 scale-100 hover:scale-105 transition-transform shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined fill" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+                            Mark as Interested
+                        </button>
+<button class="bg-surface-container-highest backdrop-blur-md text-on-surface px-8 py-4 rounded-md font-bold flex items-center gap-3 scale-100 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined" data-icon="library_add">library_add</span>
+                            Add to Collection
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Content Area: Asymmetric Bento Style -->
+<section class="max-w-7xl mx-auto px-8 py-20">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Overview Left Column -->
+<div class="lg:col-span-8 space-y-16">
+<div class="space-y-8">
+<div class="flex items-baseline gap-4">
+<h2 class="text-4xl font-headline font-bold tracking-tight">Overview</h2>
+<div class="h-[2px] flex-grow bg-gradient-to-r from-zinc-800 to-transparent"></div>
+</div>
+<p class="text-lg text-on-surface-variant leading-relaxed font-light">
+                            After the world forgot Peter Parker, he must rebuild his life in a New York City that no longer recognizes its favorite wall-crawler. Facing a city plagued by new spectral threats and a rising crime syndicate, Peter struggles to balance his anonymity with the responsibility that has defined him since the beginning. A fresh start, a familiar suit, and a legacy that refuses to die.
+                        </p>
+<div class="flex flex-wrap gap-3">
+<span class="px-5 py-2 rounded-full border border-outline-variant bg-surface-container-low text-on-surface-variant text-xs font-semibold tracking-wider uppercase">Superhero</span>
+<span class="px-5 py-2 rounded-full border border-outline-variant bg-surface-container-low text-on-surface-variant text-xs font-semibold tracking-wider uppercase">Drama</span>
+<span class="px-5 py-2 rounded-full border border-outline-variant bg-surface-container-low text-on-surface-variant text-xs font-semibold tracking-wider uppercase">Adaptation</span>
+</div>
+</div>
+<!-- Cast Slider -->
+<div class="space-y-8">
+<div class="flex justify-between items-center">
+<h2 class="text-4xl font-headline font-bold tracking-tight">Lead Cast</h2>
+<div class="flex gap-2">
+<button class="p-2 rounded-full bg-surface-container-highest text-on-surface hover:bg-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="p-2 rounded-full bg-surface-container-highest text-on-surface hover:bg-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex gap-10 overflow-x-auto hide-scrollbar pb-4">
+<!-- Tom Holland -->
+<div class="flex-shrink-0 text-center space-y-3 group cursor-pointer">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-transparent group-hover:border-primary transition-all duration-300">
+<img alt="Tom Holland" class="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-500" data-alt="Portrait of lead actor Tom Holland" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp22jtJBy5rCBL6CJOmYqiQ6QchL3nM5pZEyDIO1su3ncApdYnkyGyndM9vvYf3q7K-vn_I2tb_w1vha9YKdOFBChaxxlYBQKRwfIEG4lpUFSqXVCkig8lxgoMMVOcNMYbRdigbgWBnlc5fzHwXL-MaxH2ts53jTUUzW7TsgLjIQzarfqWVgq49HFP_5NO8NcbBojzIbrZBVzDdObH2pDLBr87LHTm7dYojo5rGOy9n7GGoOXr3bD8VJ5FoNii7x_1zwhLgZGqkzoL"/>
+</div>
+<div class="space-y-1">
+<p class="font-bold text-sm">Tom Holland</p>
+<p class="text-xs text-on-surface-variant">Peter Parker</p>
+</div>
+</div>
+<!-- Sadie Sink -->
+<div class="flex-shrink-0 text-center space-y-3 group cursor-pointer">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-transparent group-hover:border-primary transition-all duration-300">
+<img alt="Sadie Sink" class="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-500" data-alt="Portrait of lead actress Sadie Sink" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtqIiDEowRIlKI7MkoBk2Gm_pgDb8IYLrkVVKfKUhcjTGVEhbwAlP9ZwH_bjzCT6nwXjEGvxfcvT57wZ4IfCIaIZTuLUHb2QF4VM23hQi7VIuKCNMrzrny10plKqETfGXX-7OnxrjN5zhZK1SNvPubpXR1UXYVTeAqcgtRNiwaqrnEMBz8PIkZJViP6QqOgVu_0Eym0zLeIoUNmlPYbZLm-XfXQbuWZrA9tswuyA2WDiMjjdmXv6OuU0LlgHnnnClKcyRdXWPPxy99"/>
+</div>
+<div class="space-y-1">
+<p class="font-bold text-sm">Sadie Sink</p>
+<p class="text-xs text-on-surface-variant">Mary Jane</p>
+</div>
+</div>
+<!-- Vincent D'Onofrio -->
+<div class="flex-shrink-0 text-center space-y-3 group cursor-pointer">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-transparent group-hover:border-primary transition-all duration-300">
+<img alt="Vincent D'Onofrio" class="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-500" data-alt="Portrait of actor Vincent D'Onofrio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCCyAhfjAjYOylHsnq5IdO1RpRTUjb9cbQVUZzuhrIq9urnGWsCycJyj66jUIci5BwEPyv_X-9TR4jgM6S2dKGU2W645nonTInqDYy7F6UJQib-xwcv2IS-33JzQ87ZoSL-JMORUfHGWB4M53NgWPK4mhWbrepnfyL7wkgD7bEySZocMgytK3CuPXSbMlbmr2um-H0mI7bdG_4eTEJw7g1sZN8wAar7mVZmsjn3AgPAiL30EIVdM6iaa3wX_Zz5lgHruy9ahO9QyGe"/>
+</div>
+<div class="space-y-1">
+<p class="font-bold text-sm">V. D'Onofrio</p>
+<p class="text-xs text-on-surface-variant">Kingpin</p>
+</div>
+</div>
+<!-- Marisa Tomei -->
+<div class="flex-shrink-0 text-center space-y-3 group cursor-pointer">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-transparent group-hover:border-primary transition-all duration-300">
+<img alt="Marisa Tomei" class="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-500" data-alt="Portrait of actress Marisa Tomei" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqJ5lDmsx3NphAem26k6OcKFjUd_t9jrvsVUlWuyYB19UqZqNdd0md88IBwh1G-W4eDNub15zLCq_fK7HhXAAORxCH6TdekEzkOmHt7EKoysyH03D5zLtCdZmsOLEJ2P1g8d63Ve33ccBbVNHJTKlwKouRFZRxuci8q5YworgTtXH8J-S5HZjxek9czULVl0N8VQmiDg5kM-bmQ7BwZGcUYQIJEFe2DCxMVx20fN3mP36i9-KWC1NQQHjJ6fAACURV12BxrBuYlFn_"/>
+</div>
+<div class="space-y-1">
+<p class="font-bold text-sm">Marisa Tomei</p>
+<p class="text-xs text-on-surface-variant">May Parker</p>
+</div>
+</div>
+<!-- Zendaya -->
+<div class="flex-shrink-0 text-center space-y-3 group cursor-pointer">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-transparent group-hover:border-primary transition-all duration-300">
+<img alt="Zendaya" class="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-500" data-alt="Portrait of actress Zendaya" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj2IyGm6AjRGufRuLSe-TDKQMXzu23JUMYc-nY6bd7hDB9jmO7U9jvoqtEbMSvj0xPJWh0H6o9V4dN0Eg3r15uWDfLvIgyaHZSdGC-_8BCYmx_D7Z2CKzQ9NHoyKmdlGGZwkwz0ObRSQQqg4xQp2vFgsa9iuAtTnOTgONyuhLkJlukoE_rmoOeJWsDNcJfFN2jY5xmq0H72XiyH6xr1nZX9_Av5EkjgIqaEes8F1ipi18K-Q6CPNn_r0HlYsJyGzfg05NqysyeDQFV"/>
+</div>
+<div class="space-y-1">
+<p class="font-bold text-sm">Zendaya</p>
+<p class="text-xs text-on-surface-variant">MJ</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Discussions Right Column -->
+<div class="lg:col-span-4">
+<div class="bg-surface-container-low rounded-xl p-8 space-y-8 sticky top-32">
+<div class="flex items-center justify-between">
+<h3 class="text-2xl font-headline font-bold">Community</h3>
+<span class="text-xs bg-primary/20 text-primary px-3 py-1 rounded-full font-bold">2.4k Active</span>
+</div>
+<div class="space-y-6">
+<!-- Comment 1 -->
+<div class="flex gap-4">
+<img alt="User Avatar" class="w-10 h-10 rounded-full object-cover" data-alt="Female community user avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlqafeUUXNIfB3BDS6ZCp33ytweP2sPeey0o1OBJWeRQmcVfTmLjFOlHl3b6a1G31oMIuy9fm3vbcG2SFJelSX73HdVHZSYGm2zjtsAVwtNaeP4ELxcQ9eMf-XpGqv_Tll4HnLhv1Xv926SIY9wom_ZkGuXYVjFtf_9JgZjET_dzmbxq9vmJ5dXu9g5ktvb8eyEv52ARO575r1qhQV4fcShHD0zLMHIQg5rlftoiqPP9JOkOMXBr2YekM-368Fmy8-wOY3ivAyQrF_"/>
+<div class="space-y-1 flex-1">
+<div class="flex justify-between">
+<p class="text-xs font-bold">Sarah_Cinema</p>
+<p class="text-[10px] text-on-surface-variant">2h ago</p>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">The direction of this new saga feels so much more grounded. Peter's isolation is heartbreaking.</p>
+<div class="flex gap-4 pt-2">
+<button class="flex items-center gap-1 text-[10px] text-primary font-bold"><span class="material-symbols-outlined text-sm" data-icon="thumb_up">thumb_up</span> 142</button>
+<button class="flex items-center gap-1 text-[10px] text-on-surface-variant"><span class="material-symbols-outlined text-sm" data-icon="mode_comment">mode_comment</span> Reply</button>
+</div>
+</div>
+</div>
+<!-- Comment 2 -->
+<div class="flex gap-4">
+<img alt="User Avatar" class="w-10 h-10 rounded-full object-cover" data-alt="Male community user avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNmvak9e4rLrnEKmjxbb9Dsfsog8twmrFruP6m4UJ-jFl9X3ZYlCCip0hdmimS-h7GNfrvDEMLXG2nK7N50ytBmAu2my6CHUTzWBP01PSgiTnF-hfSBesME1c1z0ldxo96xh-Y6DzRJJ17TBXJKTHcSEjTJ9s6ep3_tDKf1MG8M0df8rqYHMtRLy1biwQ3Ktd__-30Cf2JvZlVDiot-QUs_lcf62e3iCx9PipHa1HVAQCmfGFS-a8qyW0kjOuRR9iN27667uI2CXYp"/>
+<div class="space-y-1 flex-1">
+<div class="flex justify-between">
+<p class="text-xs font-bold">WebHead_99</p>
+<p class="text-[10px] text-on-surface-variant">5h ago</p>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">That final fight scene in the rain? Absolute cinematography masterclass. CineNova is the best place to discuss this.</p>
+<div class="flex gap-4 pt-2">
+<button class="flex items-center gap-1 text-[10px] text-primary font-bold"><span class="material-symbols-outlined text-sm" data-icon="thumb_up">thumb_up</span> 89</button>
+<button class="flex items-center gap-1 text-[10px] text-on-surface-variant"><span class="material-symbols-outlined text-sm" data-icon="mode_comment">mode_comment</span> Reply</button>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-zinc-800">
+<div class="relative group">
+<textarea class="w-full bg-surface-container-highest border-none rounded-lg p-4 text-sm focus:ring-1 focus:ring-primary min-h-[100px] resize-none" placeholder="Write a comment..."></textarea>
+<button class="absolute bottom-4 right-4 bg-primary text-on-primary-fixed w-8 h-8 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recommended / More Like This -->
+<section class="max-w-7xl mx-auto px-8 pb-32">
+<h2 class="text-4xl font-headline font-bold tracking-tight mb-12">Related Immersive Works</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<!-- Related 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-[2/3] rounded-lg overflow-hidden bg-surface-container mb-4 shadow-xl group-hover:shadow-primary/10 transition-all duration-300">
+<img alt="Batman" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="The Batman movie poster dark silhouette" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn6tKs9Eim5JGHIAtm1FIJFOkyn4havGlLqUPwvGUusfJ2mXDayiZp-vBgtd6H9jjnptnr42JUGU1dXr1zLxkRXi7pD_lkIDJ4WoNrTzpxggVwhbr_rqIeos9OqGyFOmF2w_vVeihNRkZPFFhXl97gWN_-r_po0VjVHv2wEPz-eJE41LgxCx38KTB7BR_CoTHpJ9Zjg0T909KqL0v-ys_keVqWjxis9Y4esKBHUJrWXh04hgS3sHB8uka6tsfHit0gsr6cgtfTwww-"/>
+</div>
+<p class="font-bold text-sm">The Batman</p>
+<p class="text-xs text-on-surface-variant">2022 • Action / Noir</p>
+</div>
+<!-- Related 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-[2/3] rounded-lg overflow-hidden bg-surface-container mb-4 shadow-xl group-hover:shadow-primary/10 transition-all duration-300">
+<img alt="Avengers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Avengers endgame cosmic movie poster" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzqOfXCDA73JWOMCRtNinbNwOJvbO8Ju15r_Zau8Q0cL3fXjyyKjQ6v_wkdJ6AbIyjwvB7w2PrGbdHk7wy9Uutu_F_YejiVD0UbiNNpyZTu2izMj8reh9Fh0ILZ3jUXn1Bl7o9IfGidXEHdgd8MPlaBecR05iJ653-Hr9XhlvNS4hl27ok0el0RO4C1PM0M9zD7kb42fQXsGfbOoCyMiqCAiN_uZj5NbH3OxKD0vUbea0fw2qojwS-DYavmqi4IyEJeUUYqffc87a0"/>
+</div>
+<p class="font-bold text-sm">Endgame</p>
+<p class="text-xs text-on-surface-variant">2019 • Sci-Fi / Epic</p>
+</div>
+<!-- Related 3 -->
+<div class="group cursor-pointer">
+<div class="aspect-[2/3] rounded-lg overflow-hidden bg-surface-container mb-4 shadow-xl group-hover:shadow-primary/10 transition-all duration-300">
+<img alt="Joker" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Joker movie poster profile shot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa-ljMjP9b3nxQB2GUU4ZqdkoJc2MMuAwzC8PlPnYBM_u21zJBe4cNcMAmcUsJgT-KH-0jmNxDsd3ZTCTooSDBGvoAyXbfQEV66Yupmtil6d0U57H_t3SCOTrQcuNKlsoYDEJyyKQ2d6hlziDKBT4RW4lsSfj8GI8UWuTQ3QM4n64OhNq4e44HM18BxHU0A9wwpeC0sugjtT6CHkFVDBkdUKEocXGHCaEmvLONpBUgsVwuru-83zrOQWmFSsSkcnDOKjIzR-qBcBmp"/>
+</div>
+<p class="font-bold text-sm">Joker</p>
+<p class="text-xs text-on-surface-variant">2019 • Drama / Thriller</p>
+</div>
+<!-- Related 4 -->
+<div class="group cursor-pointer">
+<div class="aspect-[2/3] rounded-lg overflow-hidden bg-surface-container mb-4 shadow-xl group-hover:shadow-primary/10 transition-all duration-300">
+<img alt="Blade Runner" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Cyberpunk city landscape movie poster" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAM8PjMDkXR6HK9Itp5rGMtbxmrpG66BhuiPWop61TUWF4nj4hWG8PN4MUqPc9bFPqjvjgbywwPCscOacT-j65GoXaJAAV9Iu5HbN3V_I7G80xv1xJaSpsecRsZG_-WRvfp1LZ3-dpXZuescf3TaSUNT3X2UjJcRpAo1P2QqXMhVf-3B-F3E03gIbyjx0XGEW0hANkrFUzZnBvdRVMni_8vDAbAN4PL5VPZBf2PWNO8UmMuYpPrFtUeSaT30MtTfmwo2AqGJQbIpsKB"/>
+</div>
+<p class="font-bold text-sm">Blade Runner 2049</p>
+<p class="text-xs text-on-surface-variant">2017 • Sci-Fi / Neo-Noir</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="relative w-full py-16 px-12 mt-auto bg-zinc-950 flex flex-col items-center justify-center border-t border-zinc-900/50">
+<div class="text-lg font-black text-violet-500 mb-4 font-headline uppercase tracking-tighter">CineNova</div>
+<div class="flex gap-8 mb-8 font-manrope text-xs tracking-wide uppercase text-zinc-600">
+<a class="hover:text-violet-300 transition-opacity opacity-80 hover:opacity-100" href="#">Legal</a>
+<a class="hover:text-violet-300 transition-opacity opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="hover:text-violet-300 transition-opacity opacity-80 hover:opacity-100" href="#">Press</a>
+<a class="hover:text-violet-300 transition-opacity opacity-80 hover:opacity-100" href="#">Careers</a>
+</div>
+<div class="text-zinc-600 font-manrope text-xs tracking-wide uppercase">© 2024 CineNova. Cinematic Immersion.</div>
+</footer>
+</body></html>

@@ -1,0 +1,385 @@
+/* ============================================
+   PROFESSIONAL CINEMA STREAMING PLATFORM
+   Color System & Global Styles
+   ============================================ */
+
+@import url('https://rsms.me/inter/inter.css');
+
+/* CSS Variables - Professional Color System */
+:root {
+  /* Primary Colors - Elegant & Professional */
+  --color-primary: #e5b76e; /* Warm Gold - Premium feel */
+  --color-primary-dim: #d4a55e; /* Darker Gold - for hover states */
+  --color-primary-light: #f5e5d3; /* Light Gold - for accents */
+
+  /* Neutral Colors - Dark theme for cinema */
+  --color-surface: #0f0f0f; /* Pure Dark Background */
+  --color-surface-bright: #1a1a1a; /* Slightly lighter surface */
+  --color-surface-container: #2d2d2d; /* Container surfaces */
+  --color-surface-variant: #3f3f3f; /* Variant surfaces */
+
+  /* Text Colors */
+  --color-text-primary: #ffffff; /* Primary text - white */
+  --color-text-secondary: #b3b3b3; /* Secondary text - gray */
+  --color-text-tertiary: #808080; /* Tertiary text - darker gray */
+
+  /* Accent Colors */
+  --color-accent-error: #ff6b6b; /* Error state */
+  --color-accent-success: #51cf66; /* Success state */
+  --color-accent-warning: #ffd43b; /* Warning state */
+
+  /* Borders & Dividers */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-light: rgba(255, 255, 255, 0.04);
+
+  /* Typography */
+  --font-family-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-headline: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-label: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Spacing Scale */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /* Shadows - Professional depth */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.7);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   GLOBAL RESETS & BASE STYLES
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-body);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  overflow-x: hidden;
+}
+
+/* Remove Link default styles */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* Hide scrollbar while maintaining scrollability */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-variant);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+/* ============================================
+   TAILWIND CUSTOM CLASSES OVERRIDE
+   ============================================ */
+
+/* Override Tailwind's color system for professional look */
+@layer base {
+  :root {
+    /* Tailwind CSS Variables mapped to professional palette */
+    --color-white: #ffffff;
+    --color-black: #000000;
+  }
+}
+
+@layer components {
+  /* Font Family Classes */
+  .font-headline {
+    font-family: var(--font-family-headline);
+  }
+
+  .font-body {
+    font-family: var(--font-family-body);
+  }
+
+  .font-label {
+    font-family: var(--font-family-label);
+  }
+
+  .font-display {
+    font-family: var(--font-family-display);
+  }
+
+  /* Font Weight Classes (extending Tailwind) */
+  .font-thin {
+    font-weight: 100;
+  }
+
+  .font-extralight {
+    font-weight: 200;
+  }
+
+  .font-light {
+    font-weight: 300;
+  }
+
+  .font-normal {
+    font-weight: 400;
+  }
+
+  .font-medium {
+    font-weight: 500;
+  }
+
+  .font-semibold {
+    font-weight: 600;
+  }
+
+  .font-bold {
+    font-weight: 700;
+  }
+
+  .font-extrabold {
+    font-weight: 800;
+  }
+
+  .font-black {
+    font-weight: 900;
+  }
+
+  /* Professional Button Styles */
+  .btn-primary {
+    @apply px-6 py-3 rounded-lg font-semibold text-sm;
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+    transition: all var(--transition-base);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-dim);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(229, 183, 110, 0.2);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 rounded-lg font-semibold text-sm;
+    background-color: var(--color-surface-container);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-base);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-surface-variant);
+    border-color: var(--color-primary);
+  }
+
+  /* Professional Card Styles */
+  .card {
+    background-color: var(--color-surface-bright);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all var(--transition-base);
+  }
+
+  .card:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-surface-container);
+  }
+
+  /* Professional Input Styles */
+  .input-field {
+    @apply w-full px-4 py-2 rounded-lg border;
+    background-color: var(--color-surface-bright);
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+    transition: all var(--transition-base);
+  }
+
+  .input-field:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background-color: var(--color-surface-container);
+    box-shadow: 0 0 0 3px rgba(229, 183, 110, 0.1);
+  }
+
+  .input-field::placeholder {
+    color: var(--color-text-tertiary);
+  }
+}
+
+/* ============================================
+   TYPOGRAPHY HIERARCHY
+   ============================================ */
+
+h1,
+.h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+}
+
+h2,
+.h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+h3,
+.h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0px;
+  line-height: 1.3;
+}
+
+h4,
+.h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+h5,
+.h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+p,
+.body-text {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+small,
+.small-text {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.gradient-gold {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dim) 100%);
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, var(--color-surface-bright) 0%, var(--color-surface) 100%);
+}
+
+.glass-effect {
+  background: rgba(15, 15, 15, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+}
+
+.text-glow {
+  color: var(--color-text-primary);
+  text-shadow: 0 0 20px rgba(229, 183, 110, 0.3);
+}
+
+.hover-lift {
+  transition: all var(--transition-base);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN HELPERS
+   ============================================ */
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+  h1,
+  .h1 {
+    font-size: 2.5rem;
+  }
+
+  h2,
+  .h2 {
+    font-size: 1.875rem;
+  }
+
+  .container {
+    padding: var(--spacing-md);
+  }
+}
+
+/* ============================================
+   ANIMATIONS & TRANSITIONS
+   ============================================ */

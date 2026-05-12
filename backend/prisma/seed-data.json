@@ -1,0 +1,106 @@
+[
+  {
+    "title": "Spider-Man: Brand New Day",
+    "description": "After the world forgot Peter Parker, he must rebuild his life in a New York City that no longer recognizes its favorite wall-crawler. Facing a city plagued by new spectral threats and a rising crime syndicate, Peter struggles to balance his anonymity with the responsibility that has defined him since the beginning.",
+    "type": "movie",
+    "posterUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuCgBujiJgVqmeyJIm3JTygwmH6dyUr-DSqxqzGh9-doLO0XCcVN9FHlfsiWPWo2SQcFVcE0i29PkrSfLtrkOk63fE1aVbcH14jkcUgzR-zc5QNxYAV-uF2B1d8bMaP4XZOofe6aU90m8sVrWQV4OyJb9Xh84Ja5gKdqSxmEELw4SGSmp7m8ancGToAQTDMSsg4x2pOw5t2xV-pA2m2ovWIiUl_eLUoqDBbVFW6r-RExZLkriD59yvuhsm3m48k2qTd6hDbkNFWDKnv2",
+    "backdropUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuCgBujiJgVqmeyJIm3JTygwmH6dyUr-DSqxqzGh9-doLO0XCcVN9FHlfsiWPWo2SQcFVcE0i29PkrSfLtrkOk63fE1aVbcH14jkcUgzR-zc5QNxYAV-uF2B1d8bMaP4XZOofe6aU90m8sVrWQV4OyJb9Xh84Ja5gKdqSxmEELw4SGSmp7m8ancGToAQTDMSsg4x2pOw5t2xV-pA2m2ovWIiUl_eLUoqDBbVFW6r-RExZLkriD59yvuhsm3m48k2qTd6hDbkNFWDKnv2",
+    "rating": 8.5,
+    "genre": "Superhero,Action,Drama",
+    "releaseYear": 2026,
+    "duration": 148,
+    "section": "Talk Of The Town",
+    "featured": true,
+    "casts": "[{\"name\":\"Tom Holland\",\"role\":\"Peter Parker\",\"image\":\"https://lh3.googleusercontent.com/aida-public/AB6AXuBp22jtJBy5rCBL6CJOmYqiQ6QchL3nM5pZEyDIO1su3ncApdYnkyGyndM9vvYf3q7K-vn_I2tb_w1vha9YKdOFBChaxxlYBQKRwfIEG4lpUFSqXVCkig8lxgoMMVOcNMYbRdigbgWBnlc5fzHwXL-MaxH2ts53jTUUzW7TsgLjIQzarfqWVgq49HFP_5NO8NcbBojzIbrZBVzDdObH2pDLBr87LHTm7dYojo5rGOy9n7GGoOXr3bD8VJ5FoNii7x_1zwhLgZGqkzoL\"},{\"name\":\"Sadie Sink\",\"role\":\"Mary Jane\",\"image\":\"https://lh3.googleusercontent.com/aida-public/AB6AXuDtqIiDEowRIlKI7MkoBk2Gm_pgDb8IYLrkVVKfKUhcjTGVEhbwAlP9ZwH_bjzCT6nwXjEGvxfcvT57wZ4IfCIaIZTuLUHb2QF4VM23hQi7VIuKCNMrzrny10plKqETfGXX-7OnxrjN5zhZK1SNvPubpXR1UXYVTeAqcgtRNiwaqrnEMBz8PIkZJViP6QqOgVu_0Eym0zLeIoUNmlPYbZLm-XfXQbuWZrA9tswuyA2WDiMjjdmXv6OuU0LlgHnnnClKcyRdXWPPxy99\"}]"
+  },
+  {
+    "title": "The Batman",
+    "description": "In his second year of fighting crime, Batman uncovers corruption that connects Gotham's elite to his own past, while seeking justice for the murdered citizens of his city.",
+    "type": "movie",
+    "posterUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuDn6tKs9Eim5JGHIAtm1FIJFOkyn4havGlLqUPwvGUusfJ2mXDayiZp-vBgtd6H9jjnptnr42JUGU1dXr1zLxkRXi7pD_lkIDJ4WoNrTzpxggVwhbr_rqIeos9OqGyFOmF2w_vVeihNRkZPFFhXl97gWN_-r_po0VjVHv2wEPz-eJE41LgxCx38KTB7BR_CoTHpJ9Zjg0T909KqL0v-ys_keVqWjxis9Y4esKBHUJrWXh04hgS3sHB8uka6tsfHit0gsr6cgtfTwww-",
+    "rating": 8.1,
+    "genre": "Crime,Action,Drama",
+    "releaseYear": 2022,
+    "duration": 176,
+    "section": "Editor's Pick Of The Week"
+  },
+  {
+    "title": "Avengers: Endgame",
+    "description": "After the devastating events that wiped out half the universe, the Avengers assemble once more to reverse Thanos' actions and restore balance.",
+    "type": "movie",
+    "posterUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuCzqOfXCDA73JWOMCRtNinbNwOJvbO8Ju15r_Zau8Q0cL3fXjyyKjQ6v_wkdJ6AbIyjwvB7w2PrGbdHk7wy9Uutu_F_YejiVD0UbiNNpyZTu2izMj8reh9Fh0ILZ3jUXn1Bl7o9IfGidXEHdgd8MPlaBecR05iJ653-Hr9XhlvNS4hl27ok0el0RO4C1PM0M9zD7kb42fQXsGfbOoCyMiqCAiN_uZj5NbH3OxKD0vUbea0fw2qojwS-DYavmqi4IyEJeUUYqffc87a0",
+    "rating": 8.4,
+    "genre": "Superhero,Action,Fantasy",
+    "releaseYear": 2019,
+    "duration": 181,
+    "section": "Most Interested",
+    "platform": "prime"
+  },
+  {
+    "title": "Joker",
+    "description": "In Gotham City, a failed comedian is disregarded and mistreated by society and his failing medication and harassment only deepens his isolation.",
+    "type": "movie",
+    "posterUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuBa-ljMjP9b3nxQB2GUU4ZqdkoJc2MMuAwzC8PlPnYBM_u21zJBe4cNcMAmcUsJgT-KH-0jmNxDsd3ZTCTooSDBGvoAyXbfQEV66Yupmtil6d0U57H_t3SCOTrQcuNKlsoYDEJyyKQ2d6hlziDKBT4RW4lsSfj8GI8UWuTQ3QM4n64OhNq4e44HM18BxHU0A9wwpeC0sugjtT6CHkFVDBkdUKEocXGHCaEmvLONpBUgsVwuru-83zrOQWmFSsSkcnDOKjIzR-qBcBmp",
+    "rating": 8.4,
+    "genre": "Crime,Drama,Thriller",
+    "releaseYear": 2019,
+    "duration": 122,
+    "section": "Most Interested"
+  },
+  {
+    "title": "Blade Runner 2049",
+    "description": "Thirty years after the events of the first film, a new blade runner uncovers a long-buried secret that has the potential to plunge what's left of society into chaos.",
+    "type": "movie",
+    "posterUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuAM8PjMDkXR6HK9Itp5rGMtbxmrpG66BhuiPWop61TUWF4nj4hWG8PN4MUqPc9bFPqjvjgbywwPCscOacT-j65GoXaJAAV9Iu5HbN3V_I7G80xv1xJaSpsecRsZG_-WRvfp1LZ3-dpXZuescf3TaSUNT3X2UjJcRpAo1P2QqXMhVf-3B-F3E03gIbyjx0XGEW0hANkrFUzZnBvdRVMni_8vDAbAN4PL5VPZBf2PWNO8UmMuYpPrFtUeSaT30MtTfmwo2AqGJQbIpsKB",
+    "rating": 8.0,
+    "genre": "Sci-Fi,Neo-Noir,Mystery",
+    "releaseYear": 2017,
+    "duration": 164,
+    "section": "Worth Watching on Prime",
+    "platform": "prime"
+  },
+  {
+    "title": "Stranger Things",
+    "description": "When a young boy disappears, his friends, family and local police uncover a mystery involving secret government experiments and terrifying supernatural forces.",
+    "type": "series",
+    "posterUrl": "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=400&h=600&fit=crop",
+    "rating": 8.7,
+    "genre": "Drama,Fantasy,Horror",
+    "releaseYear": 2016,
+    "section": "Don't Miss These on Netflix",
+    "platform": "netflix"
+  },
+  {
+    "title": "The Office",
+    "description": "A mockumentary on a group of typical office workers, where the workday consists of ego clashes, inappropriate behavior, and tedium.",
+    "type": "series",
+    "posterUrl": "https://images.unsplash.com/photo-1616530940355-af822a3c3ecb?w=400&h=600&fit=crop",
+    "rating": 9.0,
+    "genre": "Comedy",
+    "releaseYear": 2005,
+    "section": "Don't Miss These on Netflix",
+    "platform": "netflix"
+  },
+  {
+    "title": "Sacred Games",
+    "description": "A top police officer is tasked with stopping a religious cult that has turned into a global threat. He unravels the dark connections between the powerful and the sacred.",
+    "type": "series",
+    "posterUrl": "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=400&h=600&fit=crop",
+    "rating": 8.8,
+    "genre": "Crime,Drama,Thriller",
+    "releaseYear": 2018,
+    "section": "Don't Miss These on JioHotstar",
+    "platform": "jiohotstar"
+  },
+  {
+    "title": "The Boys",
+    "description": "A group of vigilantes set out to take down corrupt superheroes who abuse their powers.",
+    "type": "series",
+    "posterUrl": "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=400&h=600&fit=crop",
+    "rating": 8.8,
+    "genre": "Action,Comedy,Crime",
+    "releaseYear": 2019,
+    "section": "Worth Watching on Prime",
+    "platform": "prime"
+  }
+]

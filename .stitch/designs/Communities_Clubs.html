@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CineNova | Communities</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;800&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-variant": "#262626",
+                        "surface-dim": "#0e0e0e",
+                        "tertiary": "#ff97b5",
+                        "primary-fixed": "#ae8dff",
+                        "on-primary-container": "#2b006e",
+                        "secondary": "#c8d8f3",
+                        "on-surface-variant": "#adaaaa",
+                        "surface-container-lowest": "#000000",
+                        "on-surface": "#ffffff",
+                        "surface-container-low": "#131313",
+                        "outline": "#777575",
+                        "surface-container-highest": "#262626",
+                        "surface-container": "#1a1919",
+                        "on-error": "#490013",
+                        "error-dim": "#d73357",
+                        "surface": "#0e0e0e",
+                        "secondary-container": "#38485d",
+                        "inverse-on-surface": "#565554",
+                        "error": "#ff6e84",
+                        "on-primary": "#39008c",
+                        "on-secondary-fixed": "#29394e",
+                        "surface-container-high": "#201f1f",
+                        "secondary-fixed": "#c8d8f3",
+                        "on-secondary-container": "#c1d1eb",
+                        "secondary-dim": "#bacae4",
+                        "on-secondary": "#3c4c61",
+                        "on-primary-fixed-variant": "#370086",
+                        "background": "#0e0e0e",
+                        "primary": "#ba9eff",
+                        "primary-dim": "#8455ef",
+                        "secondary-fixed-dim": "#bacae4",
+                        "tertiary-container": "#fd81a8",
+                        "on-error-container": "#ffb2b9",
+                        "error-container": "#a70138",
+                        "on-tertiary-fixed": "#380018",
+                        "on-background": "#ffffff",
+                        "inverse-primary": "#6e3bd7",
+                        "surface-bright": "#2c2c2c",
+                        "tertiary-fixed-dim": "#f67ca3",
+                        "primary-container": "#ae8dff",
+                        "on-primary-fixed": "#000000",
+                        "tertiary-fixed": "#ff8eb0",
+                        "surface-tint": "#ba9eff",
+                        "on-secondary-fixed-variant": "#46556b",
+                        "tertiary-dim": "#f0779d",
+                        "outline-variant": "#494847",
+                        "primary-fixed-dim": "#a27cff",
+                        "on-tertiary-fixed-variant": "#701039",
+                        "on-tertiary-container": "#59002a",
+                        "inverse-surface": "#fcf8f8",
+                        "on-tertiary": "#6a0934"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(20px);
+        }
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        body {
+            background-color: #0e0e0e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-surface selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-zinc-950/60 backdrop-blur-xl flex justify-between items-center px-8 py-4 w-full font-manrope tracking-tight">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black text-violet-500 tracking-tighter">CineNova</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-zinc-400 hover:text-zinc-100 transition-colors duration-300" href="#">Home</a>
+<a class="text-violet-400 font-bold border-b-2 border-violet-500 pb-1" href="#">Community</a>
+<a class="text-zinc-400 hover:text-zinc-100 transition-colors duration-300" href="#">Explore</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-zinc-400 hover:text-violet-300 transition-transform scale-105 active:scale-95 cursor-pointer">notifications</span>
+</div>
+<span class="material-symbols-outlined text-zinc-400 hover:text-violet-300 cursor-pointer">bookmark</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="User profile avatar portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0vxKmjwuZxnHLrB-uSRftKWXQO9WWLks-qnYRmhETuXKdn5RWJ1TjkBGwB6YWzt-Pq6-gjTc8ek52vci9E1ovLlcvJ4dBWiEuBoBCwn2Z0QmULw1Se4jzRQztTST3CyMQ1dEjqbBK1q0qjR-piWHUejHmP5yGjosBNJLBSQ5JZd_79lIjdArmc0wcRcZezXuGHiytVQeJOboLS8Vfg7AaD0_Fyqm2kuebOmW8TA0jH7qCKxOGv8g0cFTNmHRBjjyQ4h5Ncy28Pkyt"/>
+</div>
+</div>
+</header>
+<div class="flex pt-20">
+<!-- Side Navigation Bar -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-zinc-900/80 backdrop-blur-2xl flex flex-col h-full py-10 shadow-2xl shadow-violet-900/10">
+<div class="px-8 mb-12 flex flex-col items-center">
+<div class="w-16 h-16 bg-gradient-to-br from-primary to-primary-dim rounded-xl flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-white text-3xl" style="font-variation-settings: 'FILL' 1;">movie_filter</span>
+</div>
+<h2 class="text-on-surface font-headline font-extrabold tracking-tighter text-xl">CineNova</h2>
+<p class="text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-500">The Digital Auteur</p>
+</div>
+<nav class="flex-1 space-y-2">
+<p class="px-8 text-[10px] font-manrope uppercase tracking-widest font-bold text-zinc-600 mb-4">Social Hub</p>
+<a class="flex items-center gap-4 text-zinc-500 px-6 py-4 hover:bg-zinc-800/30 hover:text-zinc-200 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">dynamic_feed</span>
+<span class="font-manrope uppercase text-[10px] tracking-widest font-bold">Feed</span>
+</a>
+<a class="flex items-center gap-4 text-zinc-500 px-6 py-4 hover:bg-zinc-800/30 hover:text-zinc-200 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">person_add</span>
+<span class="font-manrope uppercase text-[10px] tracking-widest font-bold">Following</span>
+</a>
+<a class="flex items-center gap-4 text-violet-400 font-bold bg-zinc-800/50 border-r-4 border-violet-500 px-6 py-4 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-manrope uppercase text-[10px] tracking-widest font-bold">Discover</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1">
+<a class="flex items-center gap-4 text-zinc-500 px-6 py-4 hover:bg-zinc-800/30 hover:text-zinc-200 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-manrope uppercase text-[10px] tracking-widest font-bold">Settings</span>
+</a>
+<a class="flex items-center gap-4 text-zinc-500 px-6 py-4 hover:bg-zinc-800/30 hover:text-zinc-200 transition-all" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-manrope uppercase text-[10px] tracking-widest font-bold">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 px-12 py-12 min-h-screen">
+<!-- Header & Filter Bar -->
+<div class="flex justify-between items-end mb-16">
+<div>
+<h1 class="text-6xl font-headline font-extrabold tracking-tighter mb-4">Discover Clubs</h1>
+<p class="text-on-surface-variant text-lg max-w-lg">Find your tribe. Join specialized cinema communities curated for the true digital auteur.</p>
+</div>
+<!-- Browse By Trigger (Modal logic placeholder) -->
+<div class="relative group">
+<button class="bg-surface-container-highest px-6 py-3 rounded-md flex items-center gap-3 hover:bg-zinc-800 transition-colors">
+<span class="text-sm font-label uppercase tracking-widest font-bold">Browse By</span>
+<span class="material-symbols-outlined text-primary">keyboard_arrow_down</span>
+</button>
+<!-- Popover -->
+<div class="absolute right-0 mt-4 w-64 bg-zinc-900/95 backdrop-blur-2xl p-6 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50 shadow-2xl">
+<div class="grid grid-cols-1 gap-6">
+<div>
+<h4 class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-4">Categories</h4>
+<ul class="space-y-3 text-sm">
+<li class="hover:text-primary transition-colors cursor-pointer">Genre</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Country</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Language</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Anime</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Clubs Grid -->
+<div class="asymmetric-grid">
+<!-- Club Card 1 -->
+<div class="flex flex-col group bg-surface-container-low overflow-hidden rounded-xl">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Cinematic wide shot of football stadium" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAs4qJDzYoq24w_KzTq88TV8zB5n7NcE1oi1ms74b1aw1OGO8Y-zeGI6vSBHdFMpgMWUd49eCt34WNYZRsogpyZhxfVoV2AEM3qTYcqtG7FwZqcZ8h2wNhs-HxeWI3EDPPFHvQBRRfhWUqdoorhwV-dMg2vlxQecZ_M6M1nn-WvWJrIFpI4zx8p5Mm2lbpt6TPvHG4QGvlcxHAGGzC27-7FveGH_ES9_ToTg8u9Ib_6gAV9yrPIfMpZbqD9-3eo-K7AYqEFD8fdEh0W"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+<div class="absolute top-4 left-4">
+<span class="bg-tertiary-container text-on-tertiary-container text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Trending</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-2xl font-headline font-bold mb-2">Football</h3>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Analyzing the cinematic beauty of the pitch, documentaries, and the drama of the game.</p>
+<div class="mt-auto flex justify-between items-center">
+<span class="text-[10px] font-label uppercase tracking-widest text-zinc-500">12.4k Members</span>
+<button class="bg-gradient-to-br from-primary to-primary-dim text-on-primary-fixed px-6 py-2 rounded-md font-bold text-sm hover:opacity-90 transition-opacity">Join Club</button>
+</div>
+</div>
+</div>
+<!-- Club Card 2 -->
+<div class="flex flex-col group bg-surface-container-low overflow-hidden rounded-xl mt-8">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Black and white film reel and projector" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjgozjqFdUYVlaS9eGpomeH7SzMA9kkb9dHJJZ5sAY55egRd1HZeMt8krdnz8igQhrPuRVWVPrCI_8W9mC-aJp9HYp1NsM39VSqcWXPbs-o1ZrxENT9wVEMUf86dHJk1I0EDBT3RRSXjEAcikMrhn51SVmfnay_204OAic3gAMypbnaTaoB5hJGqSno4ypnC38eRCPaIV4iw_Azt3t7m_i5AgdokwdVCBqwWjjpfamLKS9dFTOj6HceC5ZLpmonyScFw6OGmHBKeSc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-2xl font-headline font-bold mb-2">World Cinema</h3>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Exploring masterpieces from every corner of the globe. Subtitles are not a barrier.</p>
+<div class="mt-auto flex justify-between items-center">
+<span class="text-[10px] font-label uppercase tracking-widest text-zinc-500">8.9k Members</span>
+<button class="bg-gradient-to-br from-primary to-primary-dim text-on-primary-fixed px-6 py-2 rounded-md font-bold text-sm hover:opacity-90 transition-opacity">Join Club</button>
+</div>
+</div>
+</div>
+<!-- Club Card 3 -->
+<div class="flex flex-col group bg-surface-container-low overflow-hidden rounded-xl">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Neon lights reflecting on a rainy city street" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdDieuopODE7axr7XjBOOkeehAFgMdR0x-AEMBbKKqpRftxYfDfxSgGva_ZneBDk_syJsoNzo5D6EzShTmJl1UcSrw3fgnszBlYV7svs6OF1n4lvbsI8WT-7mY44u--CLCk99dMdI8CPoBht0FMHL8lDf4r8M8MtPr2oYNQhGMT1r6AFtkWUQGDh_kc2o6gHvHTzwFlayD2ooIzfBmmqKvsYeyw5kmrrgVYzl8QOn5XMdT0kgXdXLNqRectJ0Pupgz2UIK8HpcsceK"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+<div class="absolute top-4 left-4">
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Hot</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-2xl font-headline font-bold mb-2">K-Drama</h3>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">From Seoul to the world. Discussing the emotional depth and style of Korean television.</p>
+<div class="mt-auto flex justify-between items-center">
+<span class="text-[10px] font-label uppercase tracking-widest text-zinc-500">25.1k Members</span>
+<button class="bg-gradient-to-br from-primary to-primary-dim text-on-primary-fixed px-6 py-2 rounded-md font-bold text-sm hover:opacity-90 transition-opacity">Join Club</button>
+</div>
+</div>
+</div>
+<!-- Club Card 4 -->
+<div class="flex flex-col group bg-surface-container-low overflow-hidden rounded-xl mt-12">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A professional cinema camera on a dolly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpwWDAHuxnPiXQKBSU5Vxjw6YsUDM0pNTp0mgRlRvdpBapuZPgfrCGLtxm_0Sc6-OH_DqIiB7G1VGv1Pvx6zkDY4wIs_SkvL95UjIk07EnqqjyRL346VstBP_3CqRyrb-XaDK0IFu8YDQu4D2hjzVkNbnLWd5eD-zC_Kk61TVFHsQr0Xcxu69eTPYtuLlP6Hkw6Cin_6pbrg8SjLpXFO_xfNBqu2vmAbmQ4SSp-BNm_3Nlto2zO6qX_M-foPtE1BTjGD8NpOelBaxU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-2xl font-headline font-bold mb-2">Film-Making</h3>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Technical discussions on lenses, lighting, and the art of the cut. For creators.</p>
+<div class="mt-auto flex justify-between items-center">
+<span class="text-[10px] font-label uppercase tracking-widest text-zinc-500">5.2k Members</span>
+<button class="bg-gradient-to-br from-primary to-primary-dim text-on-primary-fixed px-6 py-2 rounded-md font-bold text-sm hover:opacity-90 transition-opacity">Join Club</button>
+</div>
+</div>
+</div>
+<!-- Club Card 5 -->
+<div class="flex flex-col group bg-surface-container-low overflow-hidden rounded-xl">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Anime style illustration of clouds" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7mvI8Ns3LNu6yPz-saTWmNMtTb8rgTSbGKcAP0M1-TnPWs-dPgJ9sgugEtLY_jeDcgknnE4gZ4siw_1TPz6-EguYJiZ2XERBjljhxDqBynJK6qtsQvvTL4LUOqiUKv7Gn1N-nTXrDgoOsx1N761aaBnYZ41wZkrbPKgLw07NHlzfviwa0QdfpnLCjfJitgrGA7UlQKgPckTK_skzvbG678SJYZIunok3QJsHJIwohAk3i_r1GMHVCsoTqYB1YPox19WN7LIL4rbJ_"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-2xl font-headline font-bold mb-2">Anime Collective</h3>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Celebrating the artistry and narrative of Japanese animation from classic to contemporary.</p>
+<div class="mt-auto flex justify-between items-center">
+<span class="text-[10px] font-label uppercase tracking-widest text-zinc-500">30.7k Members</span>
+<button class="bg-gradient-to-br from-primary to-primary-dim text-on-primary-fixed px-6 py-2 rounded-md font-bold text-sm hover:opacity-90 transition-opacity">Join Club</button>
+</div>
+</div>
+</div>
+<!-- Club Card 6 -->
+<div class="flex flex-col group bg-surface-container-low overflow-hidden rounded-xl mt-4">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Shadowy figure in a moody noir hallway" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnLZdaTcWlOFV95SgWQ0IFt1bwLGdir0pELaanRT3VUyTxC_JIMOA3a89Na7KMIh3t5dSaKKF4t-QxfE2-sN4vbHxfFOmyclGESLKpVJ4oTdkqf-IYezgkgXfVDiZOc1eGH4FuXr5-X5sBDZqwKpu3j2j89OspnT3RtI5BqDJfbJLsx0IpWTCFx6jbFjG8Tum0b4kOUwLKBSrfq3yicDtHYywguUVYk5UkwrlgsHPbjAzAob2Jc-DstjwtgDEZp1pw7tAkgVALjpLn"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-2xl font-headline font-bold mb-2">Noir Society</h3>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Dark streets, cynical detectives, and the femme fatale. A haven for crime noir fans.</p>
+<div class="mt-auto flex justify-between items-center">
+<span class="text-[10px] font-label uppercase tracking-widest text-zinc-500">4.1k Members</span>
+<button class="bg-gradient-to-br from-primary to-primary-dim text-on-primary-fixed px-6 py-2 rounded-md font-bold text-sm hover:opacity-90 transition-opacity">Join Club</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="relative w-full py-16 px-12 mt-auto bg-zinc-950 flex flex-col items-center justify-center border-t border-zinc-900/50">
+<div class="text-lg font-black text-violet-500 mb-4 tracking-tighter">CineNova</div>
+<div class="flex gap-8 mb-8">
+<a class="font-manrope text-xs tracking-wide uppercase text-zinc-600 hover:text-violet-300 transition-opacity opacity-80 hover:opacity-100" href="#">Legal</a>
+<a class="font-manrope text-xs tracking-wide uppercase text-zinc-600 hover:text-violet-300 transition-opacity opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="font-manrope text-xs tracking-wide uppercase text-zinc-600 hover:text-violet-300 transition-opacity opacity-80 hover:opacity-100" href="#">Press</a>
+<a class="font-manrope text-xs tracking-wide uppercase text-zinc-600 hover:text-violet-300 transition-opacity opacity-80 hover:opacity-100" href="#">Careers</a>
+</div>
+<p class="text-zinc-600 font-manrope text-[10px] tracking-[0.2em] uppercase">© 2024 CineNova. Cinematic Immersion.</p>
+</footer>
+</body></html>
