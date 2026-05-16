@@ -81,7 +81,6 @@ export default function DynamicFeaturedHero() {
     )
   }
 
-  const genres = featured.genre.split(',').slice(0, 3)
   const youtubeId = featured.videoUrl ? extractYouTubeId(featured.videoUrl) : null
   const hasVideo = youtubeId && (isVideoPlaying || isMobileOrTablet)
 
@@ -101,15 +100,6 @@ export default function DynamicFeaturedHero() {
     setIsVideoPlaying(false)
     setCurrentIndex(idx)
   }
-
-  useEffect(() => {
-    if (featuredItems.length <= 1) return
-    const timer = setTimeout(() => {
-      setIsVideoPlaying(false)
-      setCurrentIndex((prev) => (prev + 1) % featuredItems.length)
-    }, 5000)
-    return () => clearTimeout(timer)
-  }, [currentIndex, featuredItems.length])
 
   return (
     <section
@@ -164,6 +154,24 @@ export default function DynamicFeaturedHero() {
         <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent z-10"></div>
         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-500 z-0"></div>
       </div>
+
+      {/* Navigation Arrows (Visible only on Hover) */}
+      {featuredItems.length > 1 && (
+        <>
+          <button
+            onClick={handlePrev}
+            className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-40 p-2 sm:p-4 rounded-full bg-black/40 hover:bg-amber-600 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-x-4 group-hover:translate-x-0"
+          >
+            <span className="material-symbols-outlined text-2xl sm:text-4xl">chevron_left</span>
+          </button>
+          <button
+            onClick={handleNext}
+            className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-40 p-2 sm:p-4 rounded-full bg-black/40 hover:bg-amber-600 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0"
+          >
+            <span className="material-symbols-outlined text-2xl sm:text-4xl">chevron_right</span>
+          </button>
+        </>
+      )}
 
       {/* Text Content */}
       <div className="relative z-20 h-full flex flex-col justify-end pb-16 sm:pb-24 lg:pb-32 px-6 sm:px-10 lg:px-12 xl:px-20 w-full">
