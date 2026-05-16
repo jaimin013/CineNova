@@ -6,6 +6,7 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
+    "prisma:generate": "prisma generate",
     "seed": "tsx prisma/seed.ts",
     "db:backup": "tsx scripts/backup-db.ts",
     "db:restore": "tsx scripts/restore-db.ts"
