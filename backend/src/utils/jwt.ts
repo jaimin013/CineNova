@@ -37,7 +37,7 @@ export const verifyRefreshToken = (token: string): JwtPayload | null => {
   }
 }
 
-export const decodeToken = (token: string): JwtPayload | null => {
+const decodeToken = (token: string): JwtPayload | null => {
   try {
     return jwt.decode(token) as JwtPayload
   } catch {

@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 
-export const VIBE_CATEGORIES = [
+const VIBE_CATEGORIES = [
   { label: 'Drama',     color: '#7c3aed' },
   { label: 'Action',    color: '#ef4444' },
   { label: 'Thriller',  color: '#3b5bdb' },
@@ -29,7 +29,7 @@ export const VibeChart: React.FC<VibeChartProps> = React.memo(({ genres }) => {
     const cx = 110, cy = 110, outerR = 90, innerR = 56, GAP = 0.03, LIFT = 10
     let startAngle = -Math.PI / 2
     
-    return percentages.map((pct, i) => {
+    return percentages.map((pct) => {
       const sweep = pct * Math.PI * 2 - GAP
       const s = startAngle + GAP / 2, e = s + sweep, mid = s + sweep / 2
       const px = (a: number, r: number) => cx + r * Math.cos(a)

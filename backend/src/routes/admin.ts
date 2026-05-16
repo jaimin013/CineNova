@@ -3,7 +3,9 @@ import { prisma } from '../utils/prisma'
 import { generateTokens, verifyRefreshToken } from '../utils/jwt'
 import { hashPassword, verifyPassword } from '../utils/password'
 import { z } from 'zod'
-import { fetchFromTMDB, mapTMDBToContent } from '../utils/tmdb'
+import { fetchFromTMDB, mapTMDBToContent, discoverTMDBByGenre } from '../utils/tmdb'
+import { fetchOMDBData, searchOMDB } from '../utils/omdb'
+import logger from '../utils/logger'
 
 // ============ TMDB PIPELINE ============
 
@@ -21,6 +23,7 @@ export const searchTMDB = async (req: Request, res: Response) => {
 
     res.status(200).json({ success: true, data: results })
   } catch (error: any) {
+    logger.error('Search TMDB error:', { error });
     res.status(500).json({ success: false, error: error.message })
   }
 }
@@ -34,6 +37,7 @@ export const getTrendingTMDB = async (req: Request, res: Response) => {
     const results = data.results.map((item: any) => mapTMDBToContent(item, type as 'movie' | 'tv'))
     res.status(200).json({ success: true, data: results })
   } catch (error: any) {
+    logger.error('Get trending TMDB error:', { error });
     res.status(500).json({ success: false, error: error.message })
   }
 }
@@ -47,6 +51,7 @@ export const getTMDBDetails = async (req: Request, res: Response) => {
     const mapped = mapTMDBToContent(data, type === 'series' ? 'tv' : 'movie')
     res.status(200).json({ success: true, data: mapped })
   } catch (error: any) {
+    logger.error('Get TMDB details error:', { error });
     res.status(500).json({ success: false, error: error.message })
   }
 }
@@ -136,6 +141,7 @@ export const adminRegister = async (req: Request, res: Response) => {
       data: { refreshToken },
     })
 
+    logger.info(`New admin registered: ${email}`, { adminId: admin.id });
     res.status(201).json({
       success: true,
       message: 'Admin registration successful',
@@ -144,7 +150,7 @@ export const adminRegister = async (req: Request, res: Response) => {
       refreshToken,
     })
   } catch (error) {
-    console.error('Admin register error:', error)
+    logger.error('Admin register error:', { error });
     res.status(500).json({ success: false, error: 'Registration failed' })
   }
 }
@@ -193,20 +199,10 @@ export const adminLogin = async (req: Request, res: Response) => {
       data: { refreshToken },
     })
 
-    res.status(200).json({
-      success: true,
-      message: 'Login successful',
-      admin: {
-        id: admin.id,
-        email: admin.email,
-        name: admin.name,
-        role: admin.role,
-      },
-      accessToken,
-      refreshToken,
-    })
+    logger.info(`Admin logged in: ${email}`, { adminId: admin.id });
+    res.status(200).json({ success: true, message: 'Login successful', admin: { id: admin.id, email: admin.email, name: admin.name, role: admin.role }, accessToken, refreshToken })
   } catch (error) {
-    console.error('Admin login error:', error)
+    logger.error('Admin login error:', { error });
     res.status(500).json({ success: false, error: 'Login failed' })
   }
 }
@@ -214,19 +210,12 @@ export const adminLogin = async (req: Request, res: Response) => {
 export const adminLogout = async (req: Request, res: Response) => {
   try {
     const adminId = (req as any).admin?.id
-
-    if (!adminId) {
-      return res.status(401).json({ success: false, error: 'Unauthorized' })
-    }
-
-    await prisma.admin.update({
-      where: { id: adminId },
-      data: { refreshToken: null },
-    })
-
+    if (!adminId) return res.status(401).json({ success: false, error: 'Unauthorized' })
+    await prisma.admin.update({ where: { id: adminId }, data: { refreshToken: null } })
+    logger.info(`Admin logged out`, { adminId });
     res.status(200).json({ success: true, message: 'Logged out successfully' })
   } catch (error) {
-    console.error('Admin logout error:', error)
+    logger.error('Admin logout error:', { error });
     res.status(500).json({ success: false, error: 'Logout failed' })
   }
 }
@@ -250,13 +239,14 @@ export const createContent = async (req: Request, res: Response) => {
       data: validation.data,
     })
 
+    logger.info(`Content created: ${content.title}`, { contentId: content.id });
     res.status(201).json({
       success: true,
       message: 'Content created successfully',
       data: content,
     })
   } catch (error) {
-    console.error('Create content error:', error)
+    logger.error('Create content error:', { error });
     res.status(500).json({ success: false, error: 'Failed to create content' })
   }
 }
@@ -289,7 +279,7 @@ export const getAllContent = async (req: Request, res: Response) => {
       total: content.length,
     })
   } catch (error) {
-    console.error('Get all content error:', error)
+    logger.error('Get all content error:', { error });
     res.status(500).json({ success: false, error: 'Failed to fetch content' })
   }
 }
@@ -323,7 +313,7 @@ export const getContentById = async (req: Request, res: Response) => {
       data: content,
     })
   } catch (error) {
-    console.error('Get content by ID error:', error)
+    logger.error('Get content by ID error:', { error });
     res.status(500).json({ success: false, error: 'Failed to fetch content' })
   }
 }
@@ -368,13 +358,14 @@ export const updateContent = async (req: Request, res: Response) => {
       data: validation.data,
     })
 
+    logger.info(`Content updated: ${content.title}`, { contentId: content.id });
     res.status(200).json({
       success: true,
       message: 'Content updated successfully',
       data: content,
     })
   } catch (error) {
-    console.error('Update content error:', error)
+    logger.error('Update content error:', { error });
     res.status(500).json({ success: false, error: 'Failed to update content' })
   }
 }
@@ -408,12 +399,13 @@ export const deleteContent = async (req: Request, res: Response) => {
       where: { id: contentId },
     })
 
+    logger.info(`Content deleted: ${existingContent.title}`, { contentId: contentId });
     res.status(200).json({
       success: true,
       message: 'Content deleted successfully',
     })
   } catch (error) {
-    console.error('Delete content error:', error)
+    logger.error('Delete content error:', { error });
     res.status(500).json({ success: false, error: 'Failed to delete content' })
   }
 }
@@ -436,13 +428,14 @@ export const bulkDeleteContent = async (req: Request, res: Response) => {
       },
     })
 
+    logger.info(`Bulk content deletion: ${result.count} items`, { ids });
     res.status(200).json({
       success: true,
       message: `Deleted ${result.count} items`,
       deletedCount: result.count,
     })
   } catch (error) {
-    console.error('Bulk delete error:', error)
+    logger.error('Bulk delete error:', { error });
     res.status(500).json({ success: false, error: 'Failed to delete content' })
   }
 }
@@ -470,7 +463,7 @@ export const getAdminStats = async (req: Request, res: Response) => {
       },
     })
   } catch (error) {
-    console.error('Get stats error:', error)
+    logger.error('Get stats error:', { error });
     res.status(500).json({ success: false, error: 'Failed to fetch stats' })
   }
 }
@@ -492,7 +485,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
       data: users,
     })
   } catch (error) {
-    console.error('Get users error:', error)
+    logger.error('Get users error:', { error });
     res.status(500).json({ success: false, error: 'Failed to fetch users' })
   }
 }
@@ -513,12 +506,13 @@ export const deleteUser = async (req: Request, res: Response) => {
       where: { id: userId },
     })
 
+    logger.info(`User deleted`, { userId });
     res.status(200).json({
       success: true,
       message: 'User deleted successfully',
     })
   } catch (error) {
-    console.error('Delete user error:', error)
+    logger.error('Delete user error:', { error });
     res.status(500).json({ success: false, error: 'Failed to delete user' })
   }
 }
@@ -530,6 +524,7 @@ export const getAllSections = async (req: Request, res: Response) => {
     const sections = await prisma.section.findMany({ orderBy: { order: 'asc' } })
     res.status(200).json({ success: true, data: sections })
   } catch (error) {
+    logger.error('Get all sections error:', { error });
     res.status(500).json({ success: false, error: 'Failed to fetch sections' })
   }
 }
@@ -543,15 +538,17 @@ export const createSection = async (req: Request, res: Response) => {
         order: order !== undefined ? parseInt(order) : 0 
       } 
     })
+    logger.info(`Section created: ${name}`, { sectionId: section.id });
     res.status(201).json({ success: true, data: section })
   } catch (error) {
+    logger.error('Create section error:', { error });
     res.status(500).json({ success: false, error: 'Failed to create section' })
   }
 }
 
 export const updateSection = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params
+    const { id } = req.params as { id: string }
     const { name, order } = req.body
     const section = await prisma.section.update({
       where: { id: parseInt(id) },
@@ -560,18 +557,22 @@ export const updateSection = async (req: Request, res: Response) => {
         order: order !== undefined ? parseInt(order) : undefined 
       }
     })
+    logger.info(`Section updated: ${name}`, { sectionId: id });
     res.status(200).json({ success: true, data: section })
   } catch (error) {
+    logger.error('Update section error:', { error });
     res.status(500).json({ success: false, error: 'Failed to update section' })
   }
 }
 
 export const deleteSection = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params
+    const { id } = req.params as { id: string }
     await prisma.section.delete({ where: { id: parseInt(id) } })
+    logger.info(`Section deleted`, { sectionId: id });
     res.status(200).json({ success: true, message: 'Section deleted' })
   } catch (error) {
+    logger.error('Delete section error:', { error });
     res.status(500).json({ success: false, error: 'Failed to delete section' })
   }
 }
@@ -583,6 +584,7 @@ export const getAllGenres = async (req: Request, res: Response) => {
     const genres = await prisma.genre.findMany({ orderBy: { name: 'asc' } })
     res.status(200).json({ success: true, data: genres })
   } catch (error) {
+    logger.error('Get all genres error:', { error });
     res.status(500).json({ success: false, error: 'Failed to fetch genres' })
   }
 }
@@ -591,18 +593,22 @@ export const createGenre = async (req: Request, res: Response) => {
   try {
     const { name } = req.body
     const genre = await prisma.genre.create({ data: { name } })
+    logger.info(`Genre created: ${name}`, { genreId: genre.id });
     res.status(201).json({ success: true, data: genre })
   } catch (error) {
+    logger.error('Create genre error:', { error });
     res.status(500).json({ success: false, error: 'Failed to create genre' })
   }
 }
 
 export const deleteGenre = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params
+    const { id } = req.params as { id: string }
     await prisma.genre.delete({ where: { id: parseInt(id) } })
+    logger.info(`Genre deleted`, { genreId: id });
     res.status(200).json({ success: true, message: 'Genre deleted' })
   } catch (error) {
+    logger.error('Delete genre error:', { error });
     res.status(500).json({ success: false, error: 'Failed to delete genre' })
   }
 }
@@ -614,6 +620,7 @@ export const getAllPlatforms = async (req: Request, res: Response) => {
     const platforms = await prisma.platform.findMany({ orderBy: { name: 'asc' } })
     res.status(200).json({ success: true, data: platforms })
   } catch (error) {
+    logger.error('Get all platforms error:', { error });
     res.status(500).json({ success: false, error: 'Failed to fetch platforms' })
   }
 }
@@ -624,18 +631,206 @@ export const createPlatform = async (req: Request, res: Response) => {
     const platform = await prisma.platform.create({ 
       data: { name, imageUrl } 
     })
+    logger.info(`Platform created: ${name}`, { platformId: platform.id });
     res.status(201).json({ success: true, data: platform })
   } catch (error) {
+    logger.error('Create platform error:', { error });
     res.status(500).json({ success: false, error: 'Failed to create platform' })
   }
 }
 
 export const deletePlatform = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params
+    const { id } = req.params as { id: string }
     await prisma.platform.delete({ where: { id: parseInt(id) } })
+    logger.info(`Platform deleted`, { platformId: id });
     res.status(200).json({ success: true, message: 'Platform deleted' })
   } catch (error) {
+    logger.error('Delete platform error:', { error });
     res.status(500).json({ success: false, error: 'Failed to delete platform' })
   }
 }
+
+// ============ EDITORS PICK CATEGORY MANAGEMENT ============
+
+export const getEditorsPickCategories = async (req: Request, res: Response) => {
+  try {
+    const categories = await prisma.editorsPickCategory.findMany({
+      orderBy: { order: 'asc' },
+    })
+    res.status(200).json({ success: true, data: categories })
+  } catch (error) {
+    logger.error('Get editors pick categories error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to fetch categories' })
+  }
+}
+
+export const createEditorsPickCategory = async (req: Request, res: Response) => {
+  try {
+    const { name, order } = req.body
+    const category = await prisma.editorsPickCategory.create({
+      data: {
+        name,
+        order: order !== undefined ? parseInt(order) : 0,
+      },
+    })
+    logger.info(`Editors pick category created: ${name}`, { categoryId: category.id });
+    res.status(201).json({ success: true, data: category })
+  } catch (error) {
+    logger.error('Create editors pick category error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to create category' })
+  }
+}
+
+export const deleteEditorsPickCategory = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params as { id: string }
+    await prisma.editorsPickCategory.delete({
+      where: { id: parseInt(id) },
+    })
+    logger.info(`Editors pick category deleted`, { categoryId: id });
+    res.status(200).json({ success: true, message: 'Category deleted' })
+  } catch (error) {
+    logger.error('Delete editors pick category error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to delete category' })
+  }
+}
+
+// ============ CONTENT GROUP MANAGEMENT ============
+
+export const getAllContentGroups = async (req: Request, res: Response) => {
+  try {
+    const groups = await prisma.contentGroup.findMany({
+      orderBy: { createdAt: 'desc' },
+    })
+    res.status(200).json({ success: true, data: groups })
+  } catch (error) {
+    logger.error('Get all content groups error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to fetch groups' })
+  }
+}
+
+export const createContentGroup = async (req: Request, res: Response) => {
+  try {
+    const { name, type } = req.body
+    const group = await prisma.contentGroup.create({
+      data: { name, type },
+    })
+    logger.info(`Content group created: ${name}`, { groupId: group.id });
+    res.status(201).json({ success: true, data: group })
+  } catch (error) {
+    logger.error('Create content group error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to create content group' })
+  }
+}
+
+// ============ OMDB PROXY ============
+
+export const searchOMDBController = async (req: Request, res: Response) => {
+  try {
+    const { query, type = 'movie' } = req.query as { query: string, type: string }
+    if (!query) return res.status(400).json({ success: false, error: 'Query is required' })
+    
+    const results = await searchOMDB(query, type as 'movie' | 'series')
+    res.status(200).json({ success: true, data: results })
+  } catch (error: any) {
+    logger.error('Search OMDB error:', { error });
+    res.status(500).json({ success: false, error: error.message })
+  }
+}
+
+export const getOMDBDetails = async (req: Request, res: Response) => {
+  try {
+    const { title, type } = req.params as { title: string, type: string }
+    const data = await fetchOMDBData(title, type as 'movie' | 'series')
+    res.status(200).json({ success: true, data })
+  } catch (error: any) {
+    logger.error('Get OMDB details error:', { error });
+    res.status(500).json({ success: false, error: error.message })
+  }
+}
+
+// ============ TMDB DISCOVER ============
+
+export const discoverTMDB = async (req: Request, res: Response) => {
+  try {
+    const { genre, type = 'movie' } = req.query as { genre: string, type: string }
+    if (!genre) return res.status(400).json({ success: false, error: 'Genre is required' })
+    
+    const data = await discoverTMDBByGenre(genre, type as 'movie' | 'tv')
+    const results = data.results.map((item: any) => mapTMDBToContent(item, type as 'movie' | 'tv'))
+    
+    res.status(200).json({ success: true, data: results })
+  } catch (error: any) {
+    logger.error('Discover TMDB error:', { error });
+    res.status(500).json({ success: false, error: error.message })
+  }
+}
+
+// ============ REPORTED REVIEWS MANAGEMENT ============
+
+export const getReportedReviews = async (req: Request, res: Response) => {
+  try {
+    const reports = await prisma.reportedReview.findMany({
+      include: {
+        review: {
+          include: {
+            content: true,
+            user: {
+              select: { id: true, name: true, email: true }
+            }
+          }
+        },
+        reporter: {
+          select: { id: true, name: true, email: true }
+        }
+      },
+      orderBy: { createdAt: 'desc' }
+    })
+    res.status(200).json({ success: true, data: reports })
+  } catch (error) {
+    logger.error('Get reported reviews error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to fetch reported reviews' })
+  }
+}
+
+export const dismissReportedReview = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params as { id: string }
+    await prisma.reportedReview.delete({
+      where: { id: parseInt(id) }
+    })
+    logger.info(`Reported review dismissed`, { reportId: id });
+    res.status(200).json({ success: true, message: 'Report dismissed' })
+  } catch (error) {
+    logger.error('Dismiss reported review error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to dismiss report' })
+  }
+}
+
+export const deleteReportedReviewContent = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params as { id: string } // This is the ID of the ReportedReview record
+    
+    // Find the report to get the reviewId
+    const report = await prisma.reportedReview.findUnique({
+      where: { id: parseInt(id) }
+    })
+    
+    if (!report) {
+      return res.status(404).json({ success: false, error: 'Report not found' })
+    }
+    
+    // Delete the review (this will cascade delete the report too)
+    await prisma.review.delete({
+      where: { id: report.reviewId }
+    })
+    
+    logger.info(`Review ${report.reviewId} deleted due to report ${id}`);
+    res.status(200).json({ success: true, message: 'Review and report deleted' })
+  } catch (error) {
+    logger.error('Delete reported review content error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to delete review' })
+  }
+}
+

@@ -11,6 +11,7 @@
     "duration": 148,
     "section": "Talk Of The Town",
     "featured": true,
+    "videoUrl": "https://www.youtube.com/watch?v=JfVOs4VSpmA",
     "casts": "[{\"name\":\"Tom Holland\",\"role\":\"Peter Parker\",\"image\":\"https://lh3.googleusercontent.com/aida-public/AB6AXuBp22jtJBy5rCBL6CJOmYqiQ6QchL3nM5pZEyDIO1su3ncApdYnkyGyndM9vvYf3q7K-vn_I2tb_w1vha9YKdOFBChaxxlYBQKRwfIEG4lpUFSqXVCkig8lxgoMMVOcNMYbRdigbgWBnlc5fzHwXL-MaxH2ts53jTUUzW7TsgLjIQzarfqWVgq49HFP_5NO8NcbBojzIbrZBVzDdObH2pDLBr87LHTm7dYojo5rGOy9n7GGoOXr3bD8VJ5FoNii7x_1zwhLgZGqkzoL\"},{\"name\":\"Sadie Sink\",\"role\":\"Mary Jane\",\"image\":\"https://lh3.googleusercontent.com/aida-public/AB6AXuDtqIiDEowRIlKI7MkoBk2Gm_pgDb8IYLrkVVKfKUhcjTGVEhbwAlP9ZwH_bjzCT6nwXjEGvxfcvT57wZ4IfCIaIZTuLUHb2QF4VM23hQi7VIuKCNMrzrny10plKqETfGXX-7OnxrjN5zhZK1SNvPubpXR1UXYVTeAqcgtRNiwaqrnEMBz8PIkZJViP6QqOgVu_0Eym0zLeIoUNmlPYbZLm-XfXQbuWZrA9tswuyA2WDiMjjdmXv6OuU0LlgHnnnClKcyRdXWPPxy99\"}]"
   },
   {
@@ -22,7 +23,8 @@
     "genre": "Crime,Action,Drama",
     "releaseYear": 2022,
     "duration": 176,
-    "section": "Editor's Pick Of The Week"
+    "section": "Editor's Pick Of The Week",
+    "videoUrl": "https://www.youtube.com/watch?v=mqqft2x_Aa4"
   },
   {
     "title": "Avengers: Endgame",
@@ -34,7 +36,8 @@
     "releaseYear": 2019,
     "duration": 181,
     "section": "Most Interested",
-    "platform": "prime"
+    "platform": "prime",
+    "videoUrl": "https://www.youtube.com/watch?v=TcMBFSGZo1E"
   },
   {
     "title": "Joker",
@@ -45,7 +48,8 @@
     "genre": "Crime,Drama,Thriller",
     "releaseYear": 2019,
     "duration": 122,
-    "section": "Most Interested"
+    "section": "Most Interested",
+    "videoUrl": "https://www.youtube.com/watch?v=zAGVQLHvwOY"
   },
   {
     "title": "Blade Runner 2049",
@@ -57,7 +61,8 @@
     "releaseYear": 2017,
     "duration": 164,
     "section": "Worth Watching on Prime",
-    "platform": "prime"
+    "platform": "prime",
+    "videoUrl": "https://www.youtube.com/watch?v=gCcx85zbxz4"
   },
   {
     "title": "Stranger Things",
@@ -68,7 +73,8 @@
     "genre": "Drama,Fantasy,Horror",
     "releaseYear": 2016,
     "section": "Don't Miss These on Netflix",
-    "platform": "netflix"
+    "platform": "netflix",
+    "videoUrl": "https://www.youtube.com/watch?v=b9EkMc79ZSU"
   },
   {
     "title": "The Office",
@@ -79,7 +85,8 @@
     "genre": "Comedy",
     "releaseYear": 2005,
     "section": "Don't Miss These on Netflix",
-    "platform": "netflix"
+    "platform": "netflix",
+    "videoUrl": "https://www.youtube.com/watch?v=2iKdm6YueN0"
   },
   {
     "title": "Sacred Games",
@@ -90,7 +97,8 @@
     "genre": "Crime,Drama,Thriller",
     "releaseYear": 2018,
     "section": "Don't Miss These on JioHotstar",
-    "platform": "jiohotstar"
+    "platform": "jiohotstar",
+    "videoUrl": "https://www.youtube.com/watch?v=28j8h0RRov4"
   },
   {
     "title": "The Boys",
@@ -101,6 +109,7 @@
     "genre": "Action,Comedy,Crime",
     "releaseYear": 2019,
     "section": "Worth Watching on Prime",
-    "platform": "prime"
+    "platform": "prime",
+    "videoUrl": "https://www.youtube.com/watch?v=M1bhOaLv4FU"
   }
 ]

@@ -16,6 +16,8 @@ interface MovieInfoStripProps {
   onToggleWatched: () => void
   isInCollection: boolean
   onToggleCollection: () => void
+  onManageCollections?: () => void
+  platformImage?: string | null
 }
 
 export const MovieInfoStrip: React.FC<MovieInfoStripProps> = ({
@@ -24,7 +26,9 @@ export const MovieInfoStrip: React.FC<MovieInfoStripProps> = ({
   isWatched,
   onToggleWatched,
   isInCollection,
-  onToggleCollection
+  onToggleCollection,
+  onManageCollections,
+  platformImage
 }) => {
   return (
     <div className="md-infostrip">
@@ -78,10 +82,15 @@ export const MovieInfoStrip: React.FC<MovieInfoStripProps> = ({
               <span className="md-strip-meta-value">{content.section}</span>
             </div>
           )}
-          {content.platform && (
+          {platformImage && (
             <div className="md-strip-meta-col">
               <span className="md-strip-meta-label">Available on</span>
-              <span className="md-strip-meta-value capitalize" style={{ color: '#4ade80' }}>{content.platform}</span>
+              <img 
+                src={platformImage} 
+                alt={content.platform}
+                className="md-platform-logo"
+                style={{ height: '24px', maxWidth: '120px', objectFit: 'contain' }}
+              />
             </div>
           )}
         </div>
@@ -112,6 +121,17 @@ export const MovieInfoStrip: React.FC<MovieInfoStripProps> = ({
           </span>
           {isInCollection ? 'In Collection ✓' : 'Add to Collection'}
         </button>
+        {onManageCollections && (
+          <button
+            className="md-strip-btn md-strip-btn--manage bg-zinc-900/50 hover:bg-amber-600/20"
+            onClick={onManageCollections}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
+              folder_open
+            </span>
+            Organize
+          </button>
+        )}
       </div>
     </div>
   )

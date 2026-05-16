@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import ScrollingTitle from './ScrollingTitle'
 
 interface Content {
   id: number
@@ -18,26 +19,22 @@ interface Content {
   casts?: string
 }
 
-// Extract YouTube video ID from various URL formats
-function extractYouTubeId(url: string): string | null {
-  if (!url) return null
-  const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/
-  const match = url.match(regex)
-  return match ? match[1] : null
-}
-
 interface DynamicContentGridProps {
-  sectionName: string
+  sectionName?: string
+  genreName?: string
   title: string
   subtitle?: string
   layout?: 'grid-2' | 'grid-4' | 'carousel'
+  limit?: number
 }
 
 export default function DynamicContentGrid({
   sectionName,
+  genreName,
   title,
   subtitle,
   layout = 'grid-4',
+  limit,
 }: DynamicContentGridProps) {
   const navigate = useNavigate()
   const [content, setContent] = useState<Content[]>([])
@@ -48,9 +45,18 @@ export default function DynamicContentGrid({
     const fetchContent = async () => {
       try {
         setLoading(true)
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/content/section/${encodeURIComponent(sectionName)}`,
-        )
+        let endpoint = ''
+        const queryParams = limit ? `?limit=${limit}` : ''
+        
+        if (sectionName) {
+          endpoint = `/api/content/section/${encodeURIComponent(sectionName)}${queryParams}`
+        } else if (genreName) {
+          endpoint = `/api/content/genre/${encodeURIComponent(genreName)}${queryParams}`
+        } else {
+          endpoint = `/api/content${queryParams}`
+        }
+
+        const response = await fetch(`${import.meta.env.VITE_API_URL}${endpoint}`)
 
         if (!response.ok) {
           throw new Error('Failed to fetch content')
@@ -68,7 +74,7 @@ export default function DynamicContentGrid({
     }
 
     fetchContent()
-  }, [sectionName])
+  }, [sectionName, genreName, limit])
 
   if (loading) {
     return (
@@ -122,14 +128,14 @@ export default function DynamicContentGrid({
           return (
             <div
               key={item.id}
-              className="group cursor-pointer transition-all duration-500 hover:scale-105"
+              className="group cursor-pointer transition-all duration-500 hover:scale-[1.02]"
               onClick={() => navigate(`/movie-detail/${item.id}`)}
             >
               {/* Poster Card */}
               <div className="aspect-[2/3] rounded-lg overflow-hidden bg-surface-container mb-4 shadow-xl group-hover:shadow-amber-600/30 transition-all duration-300 relative">
                 <img
                   alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   src={item.posterUrl}
                   onError={(e) => {
                     ;(e.target as HTMLImageElement).src =
@@ -139,7 +145,6 @@ export default function DynamicContentGrid({
 
                 {/* Overlay on Hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-end z-20">
-                  <p className="text-white font-bold text-sm line-clamp-2">{item.title}</p>
                   <div className="flex items-center justify-between mt-2">
                     <div className="flex items-center gap-1 text-xs text-amber-400">
                       <span className="material-symbols-outlined text-[14px] fill-1">star</span>
@@ -151,11 +156,12 @@ export default function DynamicContentGrid({
 
               {/* Card Info */}
               <div className="space-y-2">
-                <p className="font-bold text-sm line-clamp-1 hover:text-amber-600 transition-colors">
-                  {item.title}
-                </p>
+                <ScrollingTitle 
+                  title={item.title} 
+                  className="font-bold text-sm hover:text-amber-600 transition-colors cursor-pointer" 
+                />
 
-                <div className="flex items-center justify-between text-[10px] uppercase tracking-widest font-bold text-zinc-500">
+                <div className="flex items-center justify-between text-[10px] uppercase tracking-widest font-bold shimmer-text">
                   <span>{item.type}</span>
                   {item.releaseYear && <span>{item.releaseYear}</span>}
                 </div>

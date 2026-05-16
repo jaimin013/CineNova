@@ -1,14 +1,42 @@
-# Node modules
+# Dependencies
 node_modules/
+**/node_modules/
+
+# Production Build
 dist/
-coverage/
+**/dist/
+build/
+**/build/
+
+# Environment Variables
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
+**/ .env
+**/ .env.*
+
+# Logs
+logs/
+**/logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# IDE / OS
+.vscode/
+.idea/
 .DS_Store
+Thumbs.db
 *.local
+*.tsbuildinfo
+
+# Project Specific
+backend/db-backup.json
+backend/.trailer-cache.json
+backend/trailer_links.txt
+
+# Docker
+.dockerignore
+!backend/.dockerignore
+!frontend/.dockerignore

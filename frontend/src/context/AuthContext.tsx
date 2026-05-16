@@ -4,6 +4,7 @@ interface User {
   id: number
   email: string
   name: string
+  createdAt?: string
 }
 
 interface AuthContextType {
@@ -48,11 +49,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             const data = await response.json()
             setUser(data.user)
             setIsAuthenticated(true)
-          } else {
-            // Token invalid, clear storage
+          } else if (response.status === 401 || response.status === 403) {
+            // Token invalid or unauthorized, clear storage
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
           }
+          // For 500 errors, we keep the token and let the user stay "authenticated"
+          // although subsequent requests might still fail until the DB is back.
         } catch (err) {
           console.error('Failed to load user:', err)
         }

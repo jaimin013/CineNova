@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { verifyAccessToken } from '../utils/jwt'
+import logger from '../utils/logger'
 
 export interface AdminRequest extends Request {
   admin?: {
@@ -45,7 +46,7 @@ export const adminMiddleware = (req: AdminRequest, res: Response, next: NextFunc
 
     next()
   } catch (error) {
-    console.error('Admin middleware error:', error)
+    logger.error('Admin middleware error:', { error });
     res.status(401).json({
       success: false,
       error: 'Authentication failed',

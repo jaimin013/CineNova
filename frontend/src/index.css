@@ -383,3 +383,61 @@ small,
 /* ============================================
    ANIMATIONS & TRANSITIONS
    ============================================ */
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-hover {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 8s linear infinite;
+  animation-play-state: paused !important;
+}
+
+.group:hover .animate-marquee-hover {
+  animation-play-state: running !important;
+}
+
+/* ============================================
+   SELECT DROPDOWN STYLING
+   ============================================ */
+
+select {
+  color-scheme: dark;
+}
+
+select option {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 8px;
+}
+
+select option:hover {
+  background-color: #2d2d2d;
+  color: #e5b76e;
+}
+
+@keyframes shimmer-text {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    rgba(113, 113, 122, 1) 0%,
+    rgba(113, 113, 122, 1) 35%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(113, 113, 122, 1) 65%,
+    rgba(113, 113, 122, 1) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-text 6s linear infinite;
+  background-clip: text;
+}
+

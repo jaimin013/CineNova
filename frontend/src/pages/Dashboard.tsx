@@ -1,16 +1,19 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import DynamicFeaturedHero from '../components/DynamicFeaturedHero'
 import DynamicContentGrid from '../components/DynamicContentGrid'
-import AuthenticatedNavbar from '../components/AuthenticatedNavbar'
-import AuthenticatedSidebar from '../components/AuthenticatedSidebar'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
+import Footer from '../components/Footer'
 
 export default function Dashboard() {
   const navigate = useNavigate()
+  const location = useLocation()
   const { user } = useAuth()
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const [sections, setSections] = useState<{id: number, name: string, order: number}[]>([])
+  const [sections, setSections] = useState<{ id: number; name: string; order: number }[]>([])
+
+  const queryParams = useMemo(() => new URLSearchParams(location.search), [location.search])
+  const platformFilter = queryParams.get('platform')
+  const genreFilter = queryParams.get('genre')
 
   useEffect(() => {
     if (!user) {
@@ -33,73 +36,80 @@ export default function Dashboard() {
     fetchSections()
   }, [])
 
-  return (
-    <>
-      <AuthenticatedNavbar onMenuClick={() => setIsSidebarOpen(true)} />
-      <AuthenticatedSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+  // Filter sections based on platform or genre if provided
+  const filteredSections = useMemo(() => {
+    if (!platformFilter && !genreFilter) return sections
 
+    // If filtering by genre, we just show one large grid for that genre instead of sections
+    if (genreFilter) return []
+
+    const platformLower = platformFilter!.toLowerCase()
+    const relevant = sections.filter((s) => s.name.toLowerCase().includes(platformLower))
+
+    return relevant.length > 0 ? relevant : sections
+  }, [sections, platformFilter, genreFilter])
+
+  return (
+    <div className="min-h-screen">
       {/* Main Content */}
-      <main className="pt-24 min-h-screen">
+      <main className="pt-20 lg:pt-0">
+        {/* Featured Hero Section - Full Width */}
+        {(!platformFilter && !genreFilter) && <DynamicFeaturedHero />}
+
         <div className="max-w-[1600px] mx-auto">
-          {/* Featured Hero Section */}
-          <DynamicFeaturedHero />
+          {(platformFilter || genreFilter) && (
+            <div className="px-6 sm:px-10 lg:px-16 pt-12">
+              <div className="flex items-center gap-4 mb-2">
+                <span className="text-xs font-bold tracking-[0.2em] text-amber-600 uppercase">
+                  {platformFilter ? 'Platform Spotlight' : 'Category Discovery'}
+                </span>
+                <button
+                  onClick={() => navigate('/dashboard')}
+                  className="text-[10px] text-zinc-500 hover:text-white uppercase tracking-widest border border-zinc-800 px-2 py-1 rounded"
+                >
+                  Clear Filter
+                </button>
+              </div>
+              <h1 className="text-5xl font-extrabold font-headline capitalize">
+                {platformFilter || genreFilter}
+              </h1>
+            </div>
+          )}
 
           {/* Dynamic Content Sections */}
           <div className="space-y-20 py-12 px-6 sm:px-10 lg:px-16">
-            {sections.map((section) => (
+            {genreFilter ? (
               <DynamicContentGrid
-                key={section.id}
-                sectionName={section.name}
-                title={section.name}
-                subtitle={`Curated selection of ${section.name.toLowerCase()}`}
+                genreName={genreFilter}
+                title={`All ${genreFilter} Titles`}
+                subtitle={`Browsing our complete collection of ${genreFilter.toLowerCase()} content`}
                 layout="grid-4"
               />
-            ))}
-            
-            {sections.length === 0 && (
+            ) : (
+              filteredSections.map((section) => (
+                <DynamicContentGrid
+                  key={section.id}
+                  sectionName={section.name}
+                  title={section.name}
+                  subtitle={`Curated selection of ${section.name.toLowerCase()}`}
+                  layout="grid-4"
+                  limit={platformFilter ? undefined : 40}
+                />
+              ))
+            )}
+
+            {!genreFilter && filteredSections.length === 0 && (
               <div className="text-center py-20">
-                <p className="text-zinc-500 font-bold uppercase tracking-widest text-sm">No sections defined yet</p>
+                <p className="text-zinc-500 font-bold uppercase tracking-widest text-sm">
+                  No content found for this selection
+                </p>
               </div>
             )}
           </div>
 
-          {/* Footer */}
-          <footer className="relative w-full py-16 px-12 mt-auto bg-zinc-950 flex flex-col items-center justify-center border-t border-zinc-900/50">
-            <div className="text-lg font-black text-amber-600 mb-4 font-headline uppercase tracking-tighter">
-              CineNova
-            </div>
-            <div className="flex gap-8 mb-8 font-label text-xs tracking-wide uppercase text-zinc-600">
-              <a
-                className="hover:text-amber-600 transition-opacity opacity-80 hover:opacity-100"
-                href="#"
-              >
-                Legal
-              </a>
-              <a
-                className="hover:text-amber-600 transition-opacity opacity-80 hover:opacity-100"
-                href="#"
-              >
-                Privacy
-              </a>
-              <a
-                className="hover:text-amber-600 transition-opacity opacity-80 hover:opacity-100"
-                href="#"
-              >
-                Press
-              </a>
-              <a
-                className="hover:text-amber-600 transition-opacity opacity-80 hover:opacity-100"
-                href="#"
-              >
-                Careers
-              </a>
-            </div>
-            <div className="text-zinc-600 font-label text-xs tracking-wide uppercase">
-              © 2024 CineNova. Cinematic Immersion.
-            </div>
-          </footer>
+          <Footer />
         </div>
       </main>
-    </>
+    </div>
   )
 }

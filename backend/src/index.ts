@@ -1,7 +1,9 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
-import dotenv from 'dotenv'
 import { prisma } from './utils/prisma'
 import { generateTokens, verifyRefreshToken } from './utils/jwt'
 import { hashPassword, verifyPassword } from './utils/password'
@@ -31,12 +33,55 @@ import {
   getAllPlatforms,
   createPlatform,
   deletePlatform,
+  getEditorsPickCategories,
+  createEditorsPickCategory,
+  deleteEditorsPickCategory,
+  getAllContentGroups,
+  createContentGroup,
   searchTMDB,
   getTrendingTMDB,
   getTMDBDetails,
+  searchOMDBController,
+  getOMDBDetails,
+  discoverTMDB,
+  getReportedReviews,
+  dismissReportedReview,
+  deleteReportedReviewContent,
 } from './routes/admin'
-
-dotenv.config()
+import logger from './utils/logger'
+import {
+  getReviews,
+  createReview,
+  deleteReview,
+  toggleReviewLike,
+  getMeterVotes,
+  submitMeterVote,
+  reportReview,
+} from './routes/reviews'
+import {
+  getCommunities,
+  getCommunityMessages,
+  postMessage,
+  createCommunity,
+  updateCommunity,
+  deleteCommunity,
+} from './routes/communities'
+import {
+  toggleWatched,
+  toggleCollection,
+  getContentInteractions,
+  getWatchedList,
+  getCollectionList,
+} from './routes/interactions'
+import {
+  getUserCollections,
+  getCollectionDetails,
+  createCollection,
+  updateCollection,
+  deleteCollection,
+  addItemToCollection,
+  removeItemFromCollection,
+} from './routes/userCollections'
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -44,6 +89,15 @@ const port = process.env.PORT || 4000
 app.use(helmet())
 app.use(cors())
 app.use(express.json())
+
+// Request logging middleware
+app.use((req, res, next) => {
+  logger.info(`${req.method} ${req.url}`, {
+    ip: req.ip,
+    userAgent: req.headers['user-agent'],
+  });
+  next();
+});
 
 // Health check
 app.get('/health', (req: Request, res: Response) => {
@@ -90,6 +144,7 @@ app.post('/api/auth/register', async (req: Request, res: Response) => {
         id: true,
         email: true,
         name: true,
+        createdAt: true,
       },
     })
 
@@ -105,6 +160,8 @@ app.post('/api/auth/register', async (req: Request, res: Response) => {
       data: { refreshToken },
     })
 
+    logger.info(`User registered: ${email}`, { userId: user.id });
+
     res.status(201).json({
       success: true,
       message: 'Registration successful',
@@ -113,7 +170,7 @@ app.post('/api/auth/register', async (req: Request, res: Response) => {
       refreshToken,
     })
   } catch (error) {
-    console.error('Register error:', error)
+    logger.error('Register error:', { error });
     res.status(500).json({ success: false, error: 'Registration failed' })
   }
 })
@@ -162,6 +219,8 @@ app.post('/api/auth/login', async (req: Request, res: Response) => {
       data: { refreshToken },
     })
 
+    logger.info(`User logged in: ${email}`, { userId: user.id });
+
     res.status(200).json({
       success: true,
       message: 'Login successful',
@@ -169,12 +228,13 @@ app.post('/api/auth/login', async (req: Request, res: Response) => {
         id: user.id,
         email: user.email,
         name: user.name,
+        createdAt: user.createdAt,
       },
       accessToken,
       refreshToken,
     })
   } catch (error) {
-    console.error('Login error:', error)
+    logger.error('Login error:', { error });
     res.status(500).json({ success: false, error: 'Login failed' })
   }
 })
@@ -209,6 +269,7 @@ app.post('/api/auth/refresh', async (req: Request, res: Response) => {
         email: true,
         name: true,
         refreshToken: true,
+        createdAt: true,
       },
     })
 
@@ -231,13 +292,15 @@ app.post('/api/auth/refresh', async (req: Request, res: Response) => {
       data: { refreshToken: tokens.refreshToken },
     })
 
+    logger.info(`Token refreshed for user: ${user.email}`, { userId: user.id });
+
     res.status(200).json({
       success: true,
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     })
   } catch (error) {
-    console.error('Refresh error:', error)
+    logger.error('Refresh error:', { error });
     res.status(500).json({ success: false, error: 'Token refresh failed' })
   }
 })
@@ -254,9 +317,11 @@ app.post('/api/auth/logout', authMiddleware, async (req: Request, res: Response)
       data: { refreshToken: null },
     })
 
+    logger.info(`User logged out: ${req.user.email}`, { userId: req.user.id });
+
     res.status(200).json({ success: true, message: 'Logged out successfully' })
   } catch (error) {
-    console.error('Logout error:', error)
+    logger.error('Logout error:', { error });
     res.status(500).json({ success: false, error: 'Logout failed' })
   }
 })
@@ -276,6 +341,7 @@ app.get('/api/auth/me', authMiddleware, async (req: Request, res: Response) => {
         id: true,
         email: true,
         name: true,
+        createdAt: true,
       },
     })
 
@@ -284,7 +350,7 @@ app.get('/api/auth/me', authMiddleware, async (req: Request, res: Response) => {
       user,
     })
   } catch (error) {
-    console.error('Get user error:', error)
+    logger.error('Get user error:', { error });
     res.status(500).json({ success: false, error: 'Failed to fetch user' })
   }
 })
@@ -315,7 +381,7 @@ app.get('/api/content', async (req: Request, res: Response) => {
       data: content,
     })
   } catch (error) {
-    console.error('Get content error:', error)
+    logger.error('Get content error:', { error });
     res.status(500).json({ success: false, error: 'Failed to fetch content' })
   }
 })
@@ -333,8 +399,27 @@ app.get('/api/content/featured', async (req: Request, res: Response) => {
       data: featured,
     })
   } catch (error) {
-    console.error('Get featured error:', error)
+    logger.error('Get featured error:', { error });
     res.status(500).json({ success: false, error: 'Failed to fetch featured' })
+  }
+})
+
+// GET EDITOR'S FAVORITES (public)
+app.get('/api/content/editors-picks', async (req: Request, res: Response) => {
+  try {
+    const picks = await prisma.content.findMany({
+      where: { editorsPick: true },
+      include: { editorsPickCategory: true },
+      orderBy: [{ editorsPickOrder: 'asc' }, { createdAt: 'desc' }],
+    })
+
+    res.status(200).json({
+      success: true,
+      data: picks,
+    })
+  } catch (error) {
+    logger.error('Get editors picks error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to fetch editors picks' })
   }
 })
 
@@ -342,10 +427,12 @@ app.get('/api/content/featured', async (req: Request, res: Response) => {
 app.get('/api/content/section/:sectionName', async (req: Request, res: Response) => {
   try {
     const { sectionName } = req.params as { sectionName: string }
+    const { limit } = req.query as { limit?: string }
 
     const content = await prisma.content.findMany({
       where: { section: sectionName },
       orderBy: { createdAt: 'desc' },
+      take: limit ? parseInt(limit) : undefined,
     })
 
     res.status(200).json({
@@ -354,8 +441,122 @@ app.get('/api/content/section/:sectionName', async (req: Request, res: Response)
       section: sectionName,
     })
   } catch (error) {
-    console.error('Get section content error:', error)
+    logger.error('Get section content error:', { error });
     res.status(500).json({ success: false, error: 'Failed to fetch section' })
+  }
+})
+
+// GET CONTENT BY GENRE
+app.get('/api/content/genre/:genreName', async (req: Request, res: Response) => {
+  try {
+    const { genreName } = req.params as { genreName: string }
+    const { limit } = req.query as { limit?: string }
+
+    const content = await prisma.content.findMany({
+      where: {
+        genre: {
+          contains: genreName,
+          mode: 'insensitive',
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+      take: limit ? parseInt(limit) : undefined,
+    })
+
+    res.status(200).json({
+      success: true,
+      data: content,
+      genre: genreName,
+    })
+  } catch (error) {
+    logger.error('Get genre content error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to fetch genre' })
+  }
+})
+
+// SEARCH CONTENT
+app.get('/api/content/search', async (req: Request, res: Response) => {
+  try {
+    const { q } = req.query as { q?: string }
+
+    if (!q || q.trim() === '') {
+      return res.status(200).json({
+        success: true,
+        data: [],
+      })
+    }
+
+    const content = await prisma.content.findMany({
+      where: {
+        OR: [
+          { title: { contains: q, mode: 'insensitive' } },
+          { genre: { contains: q, mode: 'insensitive' } },
+        ],
+      },
+      orderBy: { rating: 'desc' },
+      take: 20,
+    })
+
+    res.status(200).json({
+      success: true,
+      data: content,
+    })
+  } catch (error) {
+    logger.error('Search content error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to search content' })
+  }
+})
+
+// GET RELATED CONTENT BY GROUP
+app.get('/api/content/:id/related', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params as { id: string }
+    const contentId = parseInt(id)
+
+    if (isNaN(contentId)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid content ID',
+      })
+    }
+
+    const content = await prisma.content.findUnique({
+      where: { id: contentId },
+      include: { group: true },
+    })
+
+    if (!content) {
+      return res.status(404).json({
+        success: false,
+        error: 'Content not found',
+      })
+    }
+
+    if (!content.groupId) {
+      return res.status(200).json({
+        success: true,
+        data: {
+          group: null,
+          items: [],
+        },
+      })
+    }
+
+    const items = await prisma.content.findMany({
+      where: { groupId: content.groupId },
+      orderBy: [{ groupOrder: 'asc' }, { releaseYear: 'asc' }, { createdAt: 'desc' }],
+    })
+
+    res.status(200).json({
+      success: true,
+      data: {
+        group: content.group,
+        items,
+      },
+    })
+  } catch (error) {
+    logger.error('Get related content error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to fetch related content' })
   }
 })
 
@@ -388,7 +589,7 @@ app.get('/api/content/:id', async (req: Request, res: Response) => {
       data: content,
     })
   } catch (error) {
-    console.error('Get content by ID error:', error)
+    logger.error('Get content by ID error:', { error });
     res.status(500).json({ success: false, error: 'Failed to fetch content' })
   }
 })
@@ -405,8 +606,59 @@ app.get('/api/sections', async (req: Request, res: Response) => {
       data: sections,
     })
   } catch (error) {
-    console.error('Get sections error:', error)
+    logger.error('Get sections error:', { error });
     res.status(500).json({ success: false, error: 'Failed to fetch sections' })
+  }
+})
+
+// GET ALL PLATFORMS (Public)
+app.get('/api/platforms', async (req: Request, res: Response) => {
+  try {
+    const platforms = await prisma.platform.findMany({
+      orderBy: { name: 'asc' },
+    })
+
+    res.status(200).json({
+      success: true,
+      data: platforms,
+    })
+  } catch (error) {
+    logger.error('Get platforms error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to fetch platforms' })
+  }
+})
+
+// GET ALL GENRES (Public)
+app.get('/api/genres', async (req: Request, res: Response) => {
+  try {
+    const genres = await prisma.genre.findMany({
+      orderBy: { name: 'asc' },
+    })
+
+    // Get all content genre strings to count occurrences
+    const contents = await prisma.content.findMany({
+      select: { genre: true }
+    })
+
+    const genresWithCount = genres.map(g => {
+      const count = contents.filter(c => {
+        if (!c.genre) return false
+        return c.genre.toLowerCase().split(',').map(s => s.trim()).includes(g.name.toLowerCase())
+      }).length
+
+      return {
+        ...g,
+        _count: { content: count }
+      }
+    })
+
+    res.status(200).json({
+      success: true,
+      data: genresWithCount,
+    })
+  } catch (error) {
+    logger.error('Get genres error:', { error });
+    res.status(500).json({ success: false, error: 'Failed to fetch genres' })
   }
 })
 
@@ -464,12 +716,84 @@ app.get('/api/admin/platforms', adminMiddleware, getAllPlatforms)
 app.post('/api/admin/platforms', adminMiddleware, createPlatform)
 app.delete('/api/admin/platforms/:id', adminMiddleware, deletePlatform)
 
+// ADMIN EDITOR FAVORITES CATEGORY MANAGEMENT
+app.get('/api/admin/editors-pick-categories', adminMiddleware, getEditorsPickCategories)
+app.post('/api/admin/editors-pick-categories', adminMiddleware, createEditorsPickCategory)
+app.delete('/api/admin/editors-pick-categories/:id', adminMiddleware, deleteEditorsPickCategory)
+
+// ADMIN CONTENT GROUP MANAGEMENT
+app.get('/api/admin/content-groups', adminMiddleware, getAllContentGroups)
+app.post('/api/admin/content-groups', adminMiddleware, createContentGroup)
+
 // ADMIN TMDB PROXY
 app.get('/api/admin/tmdb/search', adminMiddleware, searchTMDB)
 app.get('/api/admin/tmdb/trending', adminMiddleware, getTrendingTMDB)
 app.get('/api/admin/tmdb/details/:type/:id', adminMiddleware, getTMDBDetails)
+app.get('/api/admin/tmdb/discover', adminMiddleware, discoverTMDB)
 
-app.listen(port, () => {
-  console.log(`🚀 Server is running at http://localhost:${port}`)
-  console.log('✅ Database connected via Prisma')
+// ADMIN OMDB PROXY
+app.get('/api/admin/omdb/search', adminMiddleware, searchOMDBController)
+app.get('/api/admin/omdb/details/:type/:title', adminMiddleware, getOMDBDetails)
+
+// ============ REVIEWS & METER ROUTES (Protected - require auth) ============
+
+// REVIEWS
+app.get('/api/content/:id/reviews', getReviews)
+app.post('/api/content/:id/reviews', authMiddleware, createReview)
+app.delete('/api/content/:id/reviews/:reviewId', authMiddleware, deleteReview)
+app.post('/api/content/:id/reviews/:reviewId/like', authMiddleware, toggleReviewLike)
+
+// CINENOVA METER
+app.get('/api/content/:id/meter', getMeterVotes)
+app.post('/api/content/:id/meter', authMiddleware, submitMeterVote)
+
+// USER INTERACTIONS
+app.get('/api/content/:id/interactions', authMiddleware, getContentInteractions)
+app.post('/api/content/:id/watched', authMiddleware, toggleWatched)
+app.post('/api/content/:id/collection', authMiddleware, toggleCollection)
+app.get('/api/user/watched', authMiddleware, getWatchedList)
+app.get('/api/user/collection', authMiddleware, getCollectionList)
+
+// CUSTOM USER COLLECTIONS
+app.get('/api/user/custom-collections', authMiddleware, getUserCollections)
+app.get('/api/user/custom-collections/:id', authMiddleware, getCollectionDetails)
+app.post('/api/user/custom-collections', authMiddleware, createCollection)
+app.put('/api/user/custom-collections/:id', authMiddleware, updateCollection)
+app.delete('/api/user/custom-collections/:id', authMiddleware, deleteCollection)
+app.post('/api/user/custom-collections/:id/items', authMiddleware, addItemToCollection)
+app.delete('/api/user/custom-collections/:id/items/:contentId', authMiddleware, removeItemFromCollection)
+
+// REPORT REVIEW
+app.post('/api/content/:id/reviews/:reviewId/report', authMiddleware, reportReview)
+
+// ADMIN REPORTED REVIEWS
+app.get('/api/admin/reports', adminMiddleware, getReportedReviews)
+app.post('/api/admin/reports/:id/dismiss', adminMiddleware, dismissReportedReview)
+app.post('/api/admin/reports/:id/delete', adminMiddleware, deleteReportedReviewContent)
+
+// ============ COMMUNITY ROUTES ============
+
+// PUBLIC
+app.get('/api/communities', getCommunities)
+app.get('/api/communities/:id/messages', getCommunityMessages)
+
+// AUTHENTICATED
+app.post('/api/communities/:id/messages', authMiddleware, postMessage)
+
+// ADMIN
+app.post('/api/admin/communities', adminMiddleware, createCommunity)
+app.put('/api/admin/communities/:id', adminMiddleware, updateCommunity)
+app.delete('/api/admin/communities/:id', adminMiddleware, deleteCommunity)
+
+app.listen(port, async () => {
+  logger.info(`🚀 Server is running at http://localhost:${port}`)
+  
+  try {
+    // Test database connection on startup
+    await prisma.$queryRaw`SELECT 1`
+    logger.info('✅ Database connection verified')
+  } catch (err) {
+    logger.error('❌ Database connection failed:', { error: err })
+  }
 })
+

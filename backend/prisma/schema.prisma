@@ -16,6 +16,43 @@ model User {
   refreshToken String? // Stored for this device/session
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  reviews         Review[]
+  reviewLikes     ReviewLike[]
+  meterVotes      MeterVote[]
+  reportedReviews ReportedReview[]
+  watched         Watched[]
+  collections     Collection[]
+  clubMessages    ClubMessage[]
+  customCollections UserCollection[]
+}
+
+model UserCollection {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?  @db.Text
+  userId      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user  User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items UserCollectionItem[]
+
+  @@index([userId])
+}
+
+model UserCollectionItem {
+  id           Int      @id @default(autoincrement())
+  collectionId Int
+  contentId    Int
+  createdAt    DateTime @default(now())
+
+  collection UserCollection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  content    Content        @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@unique([collectionId, contentId])
+  @@index([collectionId])
+  @@index([contentId])
 }
 
 model Admin {
@@ -30,27 +67,65 @@ model Admin {
 }
 
 model Content {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String   @db.Text
-  type        String // "movie" or "series"
-  posterUrl   String // URL to poster image
-  rating      Float    @default(0.0)
-  genre       String // comma-separated genres: "Action,Drama,Sci-Fi"
-  releaseYear Int?
-  duration    Int? // duration in minutes
-  section     String // maintained for backward compatibility or direct access
-  platform    String? // "netflix", "jiohotstar", "prime", null for general
-  backdropUrl String? // Hero section backdrop image
-  featured    Boolean  @default(false) // For hero section
-  videoUrl    String? // YouTube video URL for featured section (optional)
-  casts       String? // JSON string of cast array
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                    Int      @id @default(autoincrement())
+  title                 String
+  description           String   @db.Text
+  type                  String // "movie" or "series"
+  posterUrl             String // URL to poster image
+  rating                Float    @default(0.0)
+  genre                 String // comma-separated genres: "Action,Drama,Sci-Fi"
+  releaseYear           Int?
+  duration              Int? // duration in minutes
+  section               String // maintained for backward compatibility or direct access
+  platform              String? // "netflix", "jiohotstar", "prime", null for general
+  backdropUrl           String? // Hero section backdrop image
+  featured              Boolean  @default(false) // For hero section
+  editorsPick           Boolean  @default(false) // For Editor's Favorites page
+  editorsPickOrder      Int?
+  editorsPickCategoryId Int?
+  videoUrl              String? // YouTube video URL for featured section (optional)
+  casts                 String? // JSON string of cast array
+  groupId               Int?
+  groupOrder            Int?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  reviews             Review[]
+  meterVotes          MeterVote[]
+  watchedBy           Watched[]
+  collectedBy         Collection[]
+  group               ContentGroup?        @relation(fields: [groupId], references: [id])
+  editorsPickCategory EditorsPickCategory? @relation(fields: [editorsPickCategoryId], references: [id])
+  collectionItems     UserCollectionItem[]
 
   @@index([section])
   @@index([platform])
   @@index([featured])
+  @@index([editorsPick])
+  @@index([groupId])
+  @@index([editorsPickCategoryId])
+}
+
+model EditorsPickCategory {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  contents Content[]
+}
+
+model ContentGroup {
+  id        Int      @id @default(autoincrement())
+  name      String
+  type      String // "franchise" or "series"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  contents Content[]
+
+  @@index([type])
 }
 
 model Section {
@@ -74,4 +149,121 @@ model Platform {
   imageUrl  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  contentId Int
+  userId    Int
+  text      String   @db.Text
+  voteType  String // "Skip" | "Timepass" | "Go for it" | "Perfection"
+  likes     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  content   Content          @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likesList ReviewLike[]
+  reports   ReportedReview[]
+
+  @@index([contentId])
+  @@index([userId])
+}
+
+model ReviewLike {
+  id        Int      @id @default(autoincrement())
+  reviewId  Int
+  userId    Int
+  createdAt DateTime @default(now())
+
+  review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([reviewId, userId])
+  @@index([reviewId])
+  @@index([userId])
+}
+
+model MeterVote {
+  id        Int      @id @default(autoincrement())
+  contentId Int
+  userId    Int
+  voteType  String // "Skip" | "Timepass" | "Go for it" | "Perfection"
+  createdAt DateTime @default(now())
+
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([contentId, userId])
+  @@index([contentId])
+  @@index([userId])
+}
+
+model ReportedReview {
+  id               Int      @id @default(autoincrement())
+  reviewId         Int
+  reportedByUserId Int
+  reason           String   @db.Text
+  createdAt        DateTime @default(now())
+
+  review   Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  reporter User   @relation(fields: [reportedByUserId], references: [id], onDelete: Cascade, map: "fk_reported_review_reporter")
+
+  @@unique([reviewId, reportedByUserId])
+  @@index([reviewId])
+  @@index([reportedByUserId])
+}
+
+model Watched {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  contentId Int
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, contentId])
+  @@index([userId])
+  @@index([contentId])
+}
+
+model Collection {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  contentId Int
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, contentId])
+  @@index([userId])
+  @@index([contentId])
+}
+
+model Community {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String   @db.Text
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  messages ClubMessage[]
+}
+
+model ClubMessage {
+  id          Int      @id @default(autoincrement())
+  communityId Int
+  userId      Int
+  text        String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  community Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([communityId])
+  @@index([userId])
 }

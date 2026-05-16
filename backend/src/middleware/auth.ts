@@ -27,7 +27,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
   next()
 }
 
-export const optionalAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
+const optionalAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization
   const token = authHeader?.split(' ')[1]
 
