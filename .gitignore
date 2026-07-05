@@ -40,3 +40,20 @@ backend/trailer_links.txt
 .dockerignore
 !backend/.dockerignore
 !frontend/.dockerignore
+# Added by code-review-graph
+.code-review-graph/
+
+.mcp.json
+.opencode.json
+.windsurfrules
+AGENTS.md
+CLAUDE.md
+GEMINI.md 
+QODER.md
+.claude 
+.gemini 
+.github 
+.kiro 
+.qoder 
+.cursor
+.cursorrules
