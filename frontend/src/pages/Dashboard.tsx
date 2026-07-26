@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
+
 import DynamicFeaturedHero from '../components/DynamicFeaturedHero'
 import DynamicContentGrid from '../components/DynamicContentGrid'
 import { useEffect, useState, useMemo } from 'react'
@@ -8,7 +8,7 @@ import Footer from '../components/Footer'
 export default function Dashboard() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { user } = useAuth()
+
   const [sections, setSections] = useState<{ id: number; name: string; order: number }[]>([])
 
   const queryParams = useMemo(() => new URLSearchParams(location.search), [location.search])
