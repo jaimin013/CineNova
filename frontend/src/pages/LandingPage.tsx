@@ -6,7 +6,7 @@ import BrandLogo from '../components/BrandLogo'
 
 const basePosters = [
   {
-    src: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/gEU2QlsUUHXjNpeEYZnWlcPwwT1.jpg',
+    src: 'https://m.media-amazon.com/images/M/MV5BYzdjMDAxZGItMjI2My00ODA1LTlkNzItOWFjMDU5ZDJlYWY3XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
     title: 'Interstellar',
   },
   {
@@ -38,15 +38,15 @@ const basePosters = [
     title: 'Dune',
   },
   {
-    src: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/49WJfeN0moxb9IPfGn8mhR1W1H.jpg',
+    src: 'https://m.media-amazon.com/images/M/MV5BNjRiMTA4NWUtNmE0ZC00NGM0LWJhMDUtZWIzMDM5ZDIzNTg3XkEyXkFqcGc@._V1_QL75_UY562_CR35,0,380,562_.jpg',
     title: 'Stranger Things',
   },
   {
-    src: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/dznsXbEqXl1J03R6j4Y1iS0xO6B.jpg',
+    src: 'https://m.media-amazon.com/images/M/MV5BZjU4OWNiYzQtMzc1NS00NjZlLTgyYTctZWY4ZmEzMTkxYjA4XkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg',
     title: 'The Boys',
   },
   {
-    src: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/iZf0KyrE25z1sgefDGWQGvO7rLp.jpg',
+    src: 'https://m.media-amazon.com/images/M/MV5BYzkxZjg2NDQtMGVjMy00NWZkLTk0ZDEtZWE3NDYwYjAyMTg1XkEyXkFqcGc@._V1_QL75_UX380_CR0,20,380,562_.jpg',
     title: '1917',
   },
   {
@@ -62,7 +62,7 @@ const basePosters = [
     title: 'The Batman',
   },
   {
-    src: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/dDlEmu3EZ0PggZTo2BQAxGvN0fV.jpg',
+    src: 'https://m.media-amazon.com/images/M/MV5BYTU3ZDVhNmMtMDVlNC00MDc0LTgwNDMtYWE5MTI2ZGI4YWIwXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
     title: 'Squid Game',
   },
   {
@@ -70,17 +70,17 @@ const basePosters = [
     title: 'The Matrix',
   },
   {
-    src: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/7C921eWKjHptmO23ppA5A0xP80S.jpg',
+    src: 'https://m.media-amazon.com/images/M/MV5BMTZhOGQxM2ItNGQyYy00YzE5LWI5MjMtNmMzNGQzNDE1OTUzXkEyXkFqcGc@._V1_SX300.jpg',
     title: 'Rush',
   },
   {
-    src: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/fC2HDm5t0kHlAMO61urvY8Glafr.jpg',
+    src: 'https://m.media-amazon.com/images/M/MV5BNDdjNTEzMjMtYjM3Mi00NzQ3LWFlNWMtZjdmYWU3ZDkzMjk1XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
     title: 'Better Call Saul',
   },
 ]
 
-const posters = Array.from({ length: 40 }).map((_, i) => ({
-  ...basePosters[i % basePosters.length],
+const posters = basePosters.map((poster, i) => ({
+  ...poster,
   id: i,
   aspect: 'aspect-[2/3]',
 }))
@@ -164,7 +164,7 @@ export default function LandingPage() {
             <BrandLogo imgClassName="h-[70px] sm:h-[110px] md:h-[160px] w-auto drop-shadow-[0_0_40px_rgba(217,119,6,0.2)]" />
           </div>
           <p className="text-zinc-400 font-label tracking-[0.3em] uppercase text-xs md:text-sm opacity-80">
-            The Digital Auteur Experience
+            Your Premium Cinematic Journey
           </p>
         </div>
       </div>

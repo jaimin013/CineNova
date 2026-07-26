@@ -16,12 +16,6 @@ export default function Dashboard() {
   const genreFilter = queryParams.get('genre')
 
   useEffect(() => {
-    if (!user) {
-      navigate('/login')
-    }
-  }, [user, navigate])
-
-  useEffect(() => {
     const fetchSections = async () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/sections`)
@@ -52,7 +46,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen">
       {/* Main Content */}
-      <main className="pt-20 lg:pt-0">
+      <main className="pt-20 lg:pt-24">
         {/* Featured Hero Section - Full Width */}
         {(!platformFilter && !genreFilter) && <DynamicFeaturedHero />}
 

@@ -26,9 +26,28 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  // Helper to decode JWT synchronously
+  const getInitialUser = () => {
+    const token = localStorage.getItem('accessToken')
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]))
+        return {
+          id: payload.id,
+          email: payload.email,
+          name: payload.name || 'User', // Fallback if name is not in token
+        }
+      } catch (e) {
+        return null
+      }
+    }
+    return null
+  }
+
+  const initialUser = getInitialUser()
+  const [user, setUser] = useState<User | null>(initialUser)
+  const [isLoading, setIsLoading] = useState(!initialUser) // Skip loading if we have token user
+  const [isAuthenticated, setIsAuthenticated] = useState(!!initialUser)
   const [error, setError] = useState<string | null>(null)
 
   const apiUrl = (import.meta.env.VITE_API_URL as string) || 'http://localhost:4000'
