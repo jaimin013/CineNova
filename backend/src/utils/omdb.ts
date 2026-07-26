@@ -29,8 +29,9 @@ export const fetchOMDBData = async (title: string, type: 'movie' | 'series' = 'm
     })
 
     if (response.data.Response === 'True') {
-      cache.set(identifier, response.data)
-      return response.data
+      const mappedData = mapOMDBDetailToContent(response.data)
+      cache.set(identifier, mappedData)
+      return mappedData
     }
     return null
   } catch (error) {
@@ -61,7 +62,7 @@ export const searchOMDB = async (query: string, type: 'movie' | 'series' = 'movi
     })
 
     if (response.data.Response === 'True') {
-      const results = response.data.Search
+      const results = response.data.Search.map(mapOMDBSearchToContent)
       cache.set(identifier, results)
       return results
     }
@@ -69,5 +70,40 @@ export const searchOMDB = async (query: string, type: 'movie' | 'series' = 'movi
   } catch (error) {
     logger.error(`Error searching OMDB for ${query}:`, { error });
     return []
+  }
+}
+
+export const mapOMDBSearchToContent = (item: any) => {
+  return {
+    tmdbId: item.imdbID,
+    title: item.Title,
+    type: item.Type === 'series' ? 'series' : 'movie',
+    posterUrl: item.Poster && item.Poster !== 'N/A' ? item.Poster : '',
+    releaseYear: item.Year ? parseInt(item.Year) : null,
+    rating: 0,
+    description: '',
+  }
+}
+
+export const mapOMDBDetailToContent = (item: any) => {
+  const duration = item.Runtime && item.Runtime !== 'N/A' ? parseInt(item.Runtime.replace(/[^0-9]/g, '')) : 0
+  const casts = item.Actors && item.Actors !== 'N/A' ? item.Actors.split(',').map((c: string) => ({
+    name: c.trim(),
+    role: '',
+    image: ''
+  })) : []
+
+  return {
+    tmdbId: item.imdbID,
+    title: item.Title,
+    description: item.Plot && item.Plot !== 'N/A' ? item.Plot : '',
+    type: item.Type === 'series' ? 'series' : 'movie',
+    posterUrl: item.Poster && item.Poster !== 'N/A' ? item.Poster : '',
+    backdropUrl: item.Poster && item.Poster !== 'N/A' ? item.Poster : '', // OMDB doesn't have backdrops, use poster
+    rating: item.imdbRating && item.imdbRating !== 'N/A' ? parseFloat(item.imdbRating) : 0,
+    releaseYear: item.Year && item.Year !== 'N/A' ? parseInt(item.Year.substring(0, 4)) : null,
+    genre: item.Genre && item.Genre !== 'N/A' ? item.Genre : '',
+    duration: duration || 0,
+    casts: JSON.stringify(casts)
   }
 }
